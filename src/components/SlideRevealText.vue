@@ -2,7 +2,6 @@
 import { watch, ref, h } from "vue"
 import { tryOnMounted, useIntersectionObserver } from "@vueuse/core"
 import anime from 'animejs'
-import Splitting from "splitting";
 
 export default {
   props: {
@@ -87,7 +86,7 @@ export default {
       }
       watch(() => props.enter, (val) => { if (val) enterAnimation() })
       watch(() => props.exit, (val) => { if (val) exitAnimation() })
-    })
+    });
 
     return () => h(props.as, {
       id: uniqueId, class: props.class, ...attrs

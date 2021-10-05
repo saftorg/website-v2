@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import "splitting/dist/splitting.css";
-import "splitting/dist/splitting-cells.css";
 import { tryOnMounted } from "@vueuse/core"
 import anime from 'animejs'
 

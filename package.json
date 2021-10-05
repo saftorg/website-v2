@@ -3,14 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite-ssg build",
+    "build": "vite build",
     "serve": "vite preview"
   },
   "dependencies": {
     "@vueuse/core": "^6.5.3",
     "animejs": "^3.2.1",
     "split-type": "^0.2.5",
-    "splitting": "^1.0.6",
     "vue": "^3.2.13"
   },
   "devDependencies": {
