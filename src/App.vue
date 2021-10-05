@@ -1,27 +1,64 @@
 <script setup lang="ts">
-import { useHead } from '@vueuse/head'
-
-const title = 'Vitesse SSR'
-const description = 'Opinionated SSR Vite Starter Template'
-
-// https://github.com/vueuse/head
-// you can use this to manipulate the document head in any components,
-// they will be rendered correctly in the html results with vite-ssg
-useHead({
-  title,
-  meta: [
-    { name: 'description', content: description },
-    { name: 'description', content: description },
-    { property: 'og:title', content: title },
-    {
-      property: 'og:image',
-      content:
-        'https://repository-images.githubusercontent.com/341177866/d42c1300-7633-11eb-84fd-ec68894d4fc9',
-    },
-  ],
-})
+import Home from 'views/Home.vue'
+import Menu from 'components/Menu.vue'
 </script>
 
 <template>
-  <router-view />
+  <Menu />
+
+  <Home />
 </template>
+
+<style lang="scss">
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "./assets/fonts/joyride/stylesheet.css";
+@import "./assets/fonts/manrope/stylesheet.css";
+
+@layer base {
+  h1 {
+    @apply text-4xl;
+    @apply font-joyride;
+    @apply leading-tight;
+  }
+
+  h2 {
+    @apply text-2xl;
+    @apply font-joyride;
+    @apply leading-none;
+  }
+
+  p {
+    @apply font-manrope;
+    @apply max-w-prose;
+    @apply text-base;
+  }
+
+  .clip {
+    @apply block;
+    clip-path: view-box;
+  }
+}
+
+@layer components {
+  .container {
+    @apply mx-auto;
+    @apply px-3;
+    width: Min(1200px, 100%);
+  }
+
+  .hero {
+    @apply px-3;
+    @apply w-screen;
+  }
+}
+
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  @apply antialiased;
+  @apply text-gray-800;
+  @apply overflow-x-hidden;
+}
+</style>
