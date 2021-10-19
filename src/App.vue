@@ -36,8 +36,7 @@ import Menu from 'components/Menu.vue'
   }
 
   .clip {
-    @apply block;
-    clip-path: view-box;
+    @apply overflow-hidden;
   }
 }
 
