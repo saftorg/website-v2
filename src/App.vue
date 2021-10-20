@@ -10,8 +10,6 @@ import Menu from 'components/Menu.vue'
 </template>
 
 <style lang="scss">
-@import "../src/assets/fonts/joyride/stylesheet.css";
-@import "../src/assets/fonts/manrope/stylesheet.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

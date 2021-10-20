@@ -1,7 +1,18 @@
 <script lang="ts">
-import { watch, ref, h, defineComponent, getCurrentInstance } from 'vue'
-import { tryOnMounted, useIntersectionObserver } from '@vueuse/core'
-import { useMotion } from '@vueuse/motion'
+import {
+  watch,
+  ref,
+  computed,
+  h,
+  defineComponent,
+  CSSProperties,
+  PropType,
+} from 'vue'
+import {
+  tryOnMounted,
+  useIntersectionObserver,
+  useTimeoutFn,
+} from '@vueuse/core'
 
 export default defineComponent({
   props: {
@@ -15,15 +26,18 @@ export default defineComponent({
     triggeredByScroll: Boolean,
     appearOnce: Boolean,
     isVisible: { type: Boolean, default: true },
-    onCompleteEnter: Function,
-    onCompleteExit: Function,
+    onCompleteEnter: {
+      type: Function as PropType<() => {}>,
+      default: () => {},
+    },
+    onCompleteExit: { type: Function as PropType<() => {}>, default: () => {} },
     characterSize: {
-      type: Number,
-      default: 40,
+      type: String,
+      default: '40px',
     },
     rotate: {
       type: Number,
-      default: 15,
+      default: 20,
     },
     staggerDelay: {
       type: Number,
@@ -33,67 +47,82 @@ export default defineComponent({
 
   setup(props, { slots, attrs }) {
     const hasAppeared = ref(false)
-    const uid = `data-split-${getCurrentInstance()?.uid}`
+    const el = ref<HTMLElement>()
+    const state = ref<'initial' | 'enter' | 'exit'>('initial')
+    const visibility = ref<'hidden' | 'visible'>('hidden')
+    const slotDefault = slots.default!
+
+    function getChildrenTextContent(children: any): string {
+      return children
+        .map((node: any) => {
+          return typeof node.children === 'string'
+            ? node.children
+            : Array.isArray(node.children)
+            ? getChildrenTextContent(node.children)
+            : ''
+        })
+        .join('')
+    }
+
+    const sentenceLength = getChildrenTextContent(slotDefault()).length
+
+    const charStyle = (index: number) => {
+      const transition = `transform ${
+        props.duration
+      }ms cubic-bezier(0.83, 0, 0.17, 1) ${
+        props.delay + index * props.staggerDelay
+      }ms`
+      return computed(() =>
+        state.value == 'initial'
+          ? ({
+              transform: `translateY(calc(1ch + ${props.characterSize})) rotate(${props.rotate}deg)`,
+              transition,
+              visibility: visibility.value,
+            } as CSSProperties)
+          : state.value == 'enter'
+          ? ({
+              transform: `translateY(0px) rotate(0deg)`,
+              transition,
+              visibility: visibility.value,
+            } as CSSProperties)
+          : ({
+              transform: `translateY(calc(-1ch - ${props.characterSize})) rotate(-${props.rotate}deg)`,
+              transition,
+              visibility: visibility.value,
+            } as CSSProperties)
+      )
+    }
+
+
+    const enterAnimation = () => {
+      visibility.value = 'visible'
+      state.value = 'enter'
+      useTimeoutFn(
+        props.onCompleteEnter,
+        props.duration + props.delay + sentenceLength * props.staggerDelay
+      )
+    }
+
+    const exitAnimation = () => {
+      state.value = 'exit'
+      useTimeoutFn(() => {
+        props.onCompleteExit()
+        visibility.value = 'hidden'
+        state.value = 'initial'
+      }, props.duration + props.delay + sentenceLength * props.staggerDelay)
+    }
+
+    watch(
+      () => props.isVisible,
+      (val) => {
+        if (val) enterAnimation()
+        else exitAnimation()
+      }
+    )
 
     tryOnMounted(() => {
-      const el = document.querySelector(`[${uid}]`)
-      const variants = Array.from(
-        document.querySelectorAll(`[${uid}] .char`)
-      ).map((elChar, index) => {
-        const { variant } = useMotion(elChar as HTMLElement, {
-          initial: {
-            y: props.characterSize,
-            rotate: props.rotate,
-            transition: {
-              onComplete: () => {
-                el!.classList.remove('invisible')
-              },
-            },
-          },
-          enterIn: {
-            y: 0,
-            rotate: 0,
-            transition: {
-              delay: props.delay + index * props.staggerDelay,
-              ease: 'cubic-bezier(0.83, 0, 0.17, 1)',
-              duration: props.duration,
-              onComplete: () => {
-                if (props.onCompleteEnter) props.onCompleteEnter()
-              },
-            },
-          },
-          exit: {
-            y: -props.characterSize,
-            rotate: -props.rotate,
-            transition: {
-              delay: props.delay + index * props.staggerDelay,
-              ease: 'cubic-bezier(0.83, 0, 0.17, 1)',
-              duration: props.duration,
-              onComplete: () => {
-                if (props.onCompleteExit) props.onCompleteExit()
-                el!.classList.add('invisible')
-                variant.value = 'initial'
-              },
-            },
-          },
-        })
-
-        return variant
-      })
-
-      const enterAnimation = () =>
-        variants.forEach((variant) => {
-          variant.value = 'enterIn'
-        })
-
-      const exitAnimation = () =>
-        variants.forEach((variant) => {
-          variant.value = 'exit'
-        })
-
       if (props.triggeredByScroll) {
-        useIntersectionObserver(el as HTMLElement, ([{ isIntersecting }]) => {
-          el!.classList.remove('invisible')
+        useIntersectionObserver(el, ([{ isIntersecting }]) => {
           if (
             (isIntersecting && !hasAppeared.value) ||
             (isIntersecting && !props.appearOnce)
@@ -105,36 +134,34 @@ export default defineComponent({
       } else if (props.isVisible) {
         enterAnimation()
       }
-
-      watch(
-        () => props.isVisible,
-        (val) => {
-          if (val) enterAnimation()
-          else exitAnimation()
-        }
-      )
     })
 
-    function getChildrenTextContent(children: any) {
+    function generateHFromSlot(children: any) {
+      let totalCount = [0]
       return children.map((node: any) => {
-        return typeof node.children === 'string'
-          ? node.children
-              .trim()
-              .split(' ')
-              .map((words: string) => [
-                h(
-                  'span',
-                  { class: 'clip inline-block' },
-                  [...words].map((letter) =>
-                    h('span', { class: 'char inline-block' }, letter)
+        if (typeof node.children === 'string') {
+          return node.children
+            .trim()
+            .split(' ')
+            .map((word: string) =>
+              h('span', { class: 'clip inline-block' }, [
+                [...word].map((letter) =>
+                  h(
+                    'span',
+                    {
+                      class: 'inline-block',
+                      style: charStyle(totalCount[0]++).value,
+                    },
+                    letter
                   )
                 ),
                 h('span', {}, ' '),
               ])
-          : node.type == 'br'
-          ? h('br')
-          : Array.isArray(node.children) &&
-            getChildrenTextContent(node.children)
+            )
+        } else if (node.type == 'br') return h('br')
+        else if (Array.isArray(node.children)) {
+          return generateHFromSlot(node.children)
+        }
       })
     }
 
@@ -143,11 +170,12 @@ export default defineComponent({
         props.as,
         {
           class: props.class,
-          [`${uid}`]: '',
+          style: { ['white-space']: 'pre-wrap' },
+          ref: el,
           ...attrs,
         },
 
-        getChildrenTextContent(slots.default())
+        generateHFromSlot(slotDefault())
       )
   },
 })

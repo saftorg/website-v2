@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
-import { useWindowSize, tryOnMounted } from '@vueuse/core'
+import { useWindowSize, tryOnMounted, useToggle } from '@vueuse/core'
 
 const { width } = useWindowSize()
 
-const isMenuOpen = ref(false)
+const [isMenuOpen, toggleIsMenuOpen] = useToggle(false)
 const menuLineDisplacement = 4
 const lineOneTemplate = `translateY(-${menuLineDisplacement}px)`
 const lineTwoTemplate = `translateY(${menuLineDisplacement}px)`
@@ -146,7 +146,7 @@ import { useMotion } from '@vueuse/motion'
   <div
     id="menu-button"
     @click="
-      isMenuOpen = !isMenuOpen;
+      toggleIsMenuOpen();
       if (isMenuOpen) hasClosingAnimationFinished = false
     "
     class="

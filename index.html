@@ -1,18 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      @font-face {
+        font-family: 'Manrope';
+        src: url('/src/assets/fonts/manrope/font/Manrope-Medium.woff2')
+            format('woff2'),
+          url('/src/assets/fonts/manrope/font/Manrope-Medium.woff')
+            format('woff');
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+      }
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" href="/favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-  </style>
-  <title>SAFT Apologetics</title>
-</head>
+      @font-face {
+        font-family: 'Manrope';
+        src: url('/src/assets/fonts/manrope/font/Manrope-Regular.woff2')
+            format('woff2'),
+          url('/src/assets/fonts/manrope/font/Manrope-Regular.woff')
+            format('woff');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
 
-<body>
-  <div id="app"></div>
-  <script type="module" src="/src/main.ts"></script>
-</body>
+      @font-face {
+        font-family: 'Manrope';
+        src: url('/src/assets/fonts/manrope/font/Manrope-Medium.woff2')
+            format('woff2'),
+          url('/src/assets/fonts/manrope/font/Manrope-Medium.woff')
+            format('woff');
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+      }
 
+      @font-face {
+        font-family: 'Manrope';
+        src: url('/src/assets/fonts/manrope/font/Manrope-Light.woff2')
+            format('woff2'),
+          url('/src/assets/fonts/manrope/font/Manrope-Light.woff')
+            format('woff');
+        font-weight: 300;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: 'Manrope';
+        src: url('/src/assets/fonts/manrope/font/Manrope-Bold.woff2')
+            format('woff2'),
+          url('/src/assets/fonts/manrope/font/Manrope-Bold.woff') format('woff');
+        font-weight: bold;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: 'Manrope';
+        src: url('/src/assets/fonts/manrope/font/Manrope-Light.woff2')
+            format('woff2'),
+          url('/src/assets/fonts/manrope/font/Manrope-Light.woff')
+            format('woff');
+        font-weight: 300;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: 'Manrope';
+        src: url('/src/assets/fonts/manrope/font/Manrope-Bold.woff2')
+            format('woff2'),
+          url('/src/assets/fonts/manrope/font/Manrope-Bold.woff') format('woff');
+        font-weight: bold;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: 'Manrope';
+        src: url('/src/assets/fonts/manrope/font/Manrope-Regular.woff2')
+            format('woff2'),
+          url('/src/assets/fonts/manrope/font/Manrope-Regular.woff')
+            format('woff');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: 'Manrope';
+        src: url('/src/assets/fonts/manrope/font/Manrope-Thin.woff2')
+            format('woff2'),
+          url('/src/assets/fonts/manrope/font/Manrope-Thin.woff') format('woff');
+        font-weight: 100;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: 'Manrope';
+        src: url('/src/assets/fonts/manrope/font/Manrope-Thin.woff2')
+            format('woff2'),
+          url('/src/assets/fonts/manrope/font/Manrope-Thin.woff') format('woff');
+        font-weight: 100;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: 'Manrope';
+        src: url('/src/assets/fonts/manrope/font/Manrope-Semibold.woff2')
+            format('woff2'),
+          url('/src/assets/fonts/manrope/font/Manrope-Semibold.woff')
+            format('woff');
+        font-weight: 600;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: 'Manrope';
+        src: url('/src/assets/fonts/manrope/font/Manrope-Semibold.woff2')
+            format('woff2'),
+          url('/src/assets/fonts/manrope/font/Manrope-Semibold.woff')
+            format('woff');
+        font-weight: 600;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: 'Joyride STD';
+        src: url('/src/assets/fonts/joyride/JoyrideSTD.woff2') format('woff2'),
+          url('/src/assets/fonts/joyride/JoyrideSTD.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: 'Joyride STD';
+        src: url('/src/assets/fonts/joyride/JoyrideSTDItalic.woff2')
+            format('woff2'),
+          url('/src/assets/fonts/joyride/JoyrideSTDItalic.woff') format('woff');
+        font-weight: normal;
+        font-style: italic;
+        font-display: swap;
+      }
+    </style>
+    <title>SAFT Apologetics</title>
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
 </html>
