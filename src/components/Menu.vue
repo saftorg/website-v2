@@ -133,7 +133,7 @@ import { useMotion } from '@vueuse/motion'
       as="a"
       :href="href"
       class="link"
-      :delay="index * 100"
+      :delay="index * 0.1"
       :is-visible="isMenuOpen"
       :on-complete-exit="
         () => {

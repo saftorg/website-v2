@@ -49,7 +49,7 @@ import { useIntervalFn } from '@vueuse/core'
         <slide-reveal-text
           as="h2"
           class="hidden md:block leading-[1.32rem] uppercase"
-          :delay="1200"
+          :delay="1"
         >
           SAFT
           <br />Apologetics
@@ -65,7 +65,7 @@ import { useIntervalFn } from '@vueuse/core'
           <slide-reveal-text
             as="h1"
             class="leading-10"
-            :delay="1400"
+            :delay="1.2"
             :triggered-by-scroll="true"
             :appear-once="true"
           >

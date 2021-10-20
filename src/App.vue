@@ -13,6 +13,8 @@ import Menu from 'components/Menu.vue'
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "./assets/fonts/joyride/stylesheet.css";
+ @import "./assets/fonts/manrope/stylesheet.css";
 
 @layer base {
   h1 {
