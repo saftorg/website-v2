@@ -4,14 +4,17 @@ import Home from 'views/Home.vue'
 import Menu from 'components/Menu.vue'
 import imagesLoaded from 'imagesloaded'
 import Loading from './views/Loading.vue'
+import { tryOnMounted } from '@vueuse/core'
 
 const imgsAreLoaded = ref(false)
 
-imagesLoaded(
-  document.querySelectorAll('img'),
-  { background: true },
-  () => (imgsAreLoaded.value = true)
-)
+tryOnMounted(() => {
+  imagesLoaded(
+    document.querySelectorAll('img'),
+    { background: true },
+    () => (imgsAreLoaded.value = true)
+  )
+})
 </script>
 
 <template>
@@ -68,7 +71,7 @@ imagesLoaded(
 }
 
 @layer utilities {
-.will-change-transform {
+  .will-change-transform {
     will-change: transform;
   }
 }
