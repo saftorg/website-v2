@@ -1,20 +1,34 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import Home from 'views/Home.vue'
 import Menu from 'components/Menu.vue'
+import imagesLoaded from 'imagesloaded'
+import Loading from './views/Loading.vue'
+
+const imgsAreLoaded = ref(false)
+
+imagesLoaded(
+  document.querySelectorAll('img'),
+  { background: true },
+  () => (imgsAreLoaded.value = true)
+)
 </script>
 
 <template>
-  <Menu />
+  <Loading v-if="!imgsAreLoaded" />
+  <div v-else>
+    <Menu />
 
-  <Home />
+    <Home />
+  </div>
 </template>
 
 <style lang="scss">
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import "./assets/fonts/joyride/stylesheet.css";
- @import "./assets/fonts/manrope/stylesheet.css";
+@import './assets/fonts/joyride/stylesheet.css';
+@import './assets/fonts/manrope/stylesheet.css';
 
 @layer base {
   h1 {
@@ -50,6 +64,12 @@ import Menu from 'components/Menu.vue'
   .hero {
     @apply px-3;
     @apply w-screen;
+  }
+}
+
+@layer utilities {
+.will-change-transform {
+    will-change: transform;
   }
 }
 

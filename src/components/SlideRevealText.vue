@@ -17,7 +17,7 @@ export default defineComponent({
     delay: { type: Number, default: 0 },
     duration: {
       type: Number,
-      default: 0.7,
+      default: 1.2,
     },
     as: { type: String, default: 'h1' },
     class: { type: String, default: '' },
@@ -38,7 +38,7 @@ export default defineComponent({
     },
     rotate: {
       type: Number,
-      default: 35,
+      default: 15,
     },
     staggerDelay: {
       type: Number,
@@ -50,22 +50,42 @@ export default defineComponent({
     const uid = `data-split-${getCurrentInstance()?.uid}`
     const slotDefault = slots.default!
     const visibility = ref<'visible' | 'hidden'>('hidden')
+    let inTimeline = gsap.timeline({
+      defaults: { duration: props.duration, delay: props.delay, ease: 'expo' },
+    })
+    let outTimeline = gsap.timeline({
+      defaults: {
+        duration: props.duration - 0.5,
+        delay: props.delay,
+        ease: 'power2',
+      },
+    })
+    const selector = `[${uid}] .char`
 
     const enterAnimation = () => {
       visibility.value = 'visible'
-      gsap.fromTo(
-        `[${uid}] .char`,
+      if (outTimeline.isActive()) {
+        outTimeline.kill()
+      }
+
+      inTimeline = gsap.timeline({
+        defaults: {
+          duration: props.duration,
+          delay: props.delay,
+          ease: 'expo',
+        },
+      })
+
+      inTimeline.fromTo(
+        selector,
         {
-          rotation: props.rotate,
+          rotate: props.rotate,
           y: props.characterSize,
         },
         {
-          rotation: 0,
+          rotate: 0,
           y: 0,
           stagger: props.staggerDelay,
-          delay: props.delay,
-          duration: props.duration,
-          ease: 'expo',
           scrollTrigger: props.triggeredByScroll ? `[${uid}]` : undefined,
           onComplete: props.onCompleteEnter,
         }
@@ -73,25 +93,27 @@ export default defineComponent({
     }
 
     const exitAnimation = () => {
-      gsap.fromTo(
-        `[${uid}] .char`,
-        {
-          rotation: 0,
-          y: 0,
-        },
-        {
-          rotation: -props.rotate,
-          y: `-${props.characterSize}`,
-          stagger: { amount: props.staggerDelay, from: 'end' },
+      if (inTimeline.isActive()) {
+        inTimeline.kill()
+      }
+
+      outTimeline = gsap.timeline({
+        defaults: {
+          duration: props.duration - 0.5,
           delay: props.delay,
-          duration: props.duration - 0.2,
           ease: 'power2',
-          onComplete: () => {
-            props.onCompleteExit()
-            visibility.value = 'hidden'
-          },
-        }
-      )
+        },
+      })
+
+      outTimeline.to(selector, {
+        rotate: -props.rotate + 5,
+        y: `-${props.characterSize}`,
+        stagger: { amount: props.staggerDelay, from: 'end' },
+        onComplete: () => {
+          props.onCompleteExit()
+          visibility.value = 'hidden'
+        },
+      })
     }
 
     tryOnMounted(() => {
@@ -119,7 +141,7 @@ export default defineComponent({
                   h(
                     'span',
                     {
-                      class: 'char inline-block',
+                      class: 'char inline-block will-change-transform',
                     },
                     letter
                   )

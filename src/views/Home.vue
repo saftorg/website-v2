@@ -87,6 +87,7 @@ import { useIntervalFn } from '@vueuse/core'
   width: Max(40vw, 30rem);
   height: Max(40vw, 30rem);
   transition-duration: 3s;
+  will-change: transform;
   @apply transform;
   @apply ease-linear;
   @apply absolute;

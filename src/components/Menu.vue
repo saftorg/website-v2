@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
-import { useWindowSize, tryOnMounted, useToggle } from '@vueuse/core'
-
-const { width } = useWindowSize()
+import { ref, watch } from 'vue'
+import { tryOnMounted, useToggle } from '@vueuse/core'
 
 const [isMenuOpen, toggleIsMenuOpen] = useToggle(false)
 const menuLineDisplacement = 4
@@ -61,42 +59,6 @@ tryOnMounted(() => {
     }
   )
 })
-const menuStyle = computed(() => {
-  if (!hasClosingAnimationFinished.value) {
-    if (width.value >= 1200) {
-      return {
-        borderRadius: 0,
-        rotate: '0deg',
-        top: 0,
-        left: 0,
-        width: '50vw',
-        height: '100vh',
-        transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
-      }
-    } else {
-      return {
-        borderRadius: 0,
-        rotate: '0deg',
-        top: 0,
-        left: 0,
-        width: '100vw',
-        height: '100vh',
-        transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
-      }
-    }
-  } else {
-    return {
-      borderRadius: '50%',
-      rotate: '45deg',
-      top: '2.5rem',
-      left: width.value >= 1200 ? `${0.5 * width.value - 586.5}px` : '0.85rem',
-      width: '2.5rem',
-      height: '2.5rem',
-      transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
-    }
-  }
-})
-
 const log = console.log
 
 import SlideRevealText from 'components/SlideRevealText.vue'
@@ -106,24 +68,23 @@ import { useMotion } from '@vueuse/motion'
 <template>
   <div
     id="menu-circle"
-    class="
-      w-10
-      h-10
-      rounded-[50%]
-      fixed
-      bg-gray-800
-      text-white
-      shadow-2xl
-      z-50
-      ease-out
-      duration-700
-      origin-center
-    "
-    :style="menuStyle"
+    class="fixed z-50 left-0 top-0 text-white bg-gray-800 shadow-2xl duration-700 ease-out origin-center"
+    :class="!hasClosingAnimationFinished ? 'open' : 'close'"
   ></div>
   <div
+    class="
+      container
+      h-[60%]
+      top-[150px]
+      lg:top-[300px]
+      left-3
+      lg:left-[calc(calc(50vw-600px)+0.85rem)]
+      grid grid-rows-4
+      content-center
+      fixed
+      z-[-1]
+    "
     :class="{
-      'container h-[60%] top-[150px] lg:top-[300px] left-3 lg:left-[calc(calc(50vw-600px)+0.85rem)] grid grid-rows-4 content-center fixed z-[-1]': true,
       'z-[51]': !hasClosingAnimationFinished,
     }"
   >
@@ -197,6 +158,30 @@ a.link {
   &-2 {
     transform: v-bind(lineTwoTemplate);
     @apply origin-bottom-left;
+  }
+}
+
+#menu-circle {
+  &.open {
+    @apply rounded-none;
+    @apply rotate-0;
+    @apply w-screen h-screen;
+
+    @screen lg {
+      width: 50vw;
+    }
+  }
+
+  &.close {
+    border-radius: 50%;
+    @apply w-10 h-10;
+    @apply duration-300;
+    transform: translateX(0.75rem) translateY(2.5rem);
+
+    @screen lg {
+      --x: calc(calc(50vw - 600px) + 0.85rem);
+      transform: translateX(var(--x)) translateY(2.5rem) rotate(45deg);
+    }
   }
 }
 </style>
