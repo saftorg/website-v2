@@ -24,16 +24,16 @@ const linesEnter = () => {
     x: 10,
     scaleX: 2,
     rotate: -45,
-    ease: 'expo',
-    duration: 0.5,
+    ease: 'power2',
+    duration: 1.2,
   })
   gsap.to(lineTwo, {
     y: -15,
     x: 10,
     scaleX: 2,
     rotate: 45,
-    ease: 'expo',
-    duration: 0.5,
+    ease: 'power2',
+    duration: 1.2,
   })
 }
 const linesExit = () => {
@@ -176,7 +176,7 @@ a.link {
   @apply rotate-0;
   @apply w-screen h-screen;
   clip-path: circle(100%);
-  transition: clip-path 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+  transition: clip-path 1.2s cubic-bezier(0.87, 0, 0.13, 1);
 
   @screen xl {
     width: 50vw;
