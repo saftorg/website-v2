@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { tryOnMounted, useToggle } from '@vueuse/core'
+import { useToggle } from '@vueuse/core'
+import gsap from 'gsap'
 
 const [isMenuOpen, toggleIsMenuOpen] = useToggle(false)
 const menuLineDisplacement = 4
@@ -14,62 +15,73 @@ const links: { title: string; href: string }[] = [
   { title: 'Podcast', href: '#' },
 ]
 const hasClosingAnimationFinished = ref(true)
-tryOnMounted(() => {
-  const lineOne = document.querySelector('.line-1') as HTMLElement
-  const lineTwo = document.querySelector('.line-2') as HTMLElement
-  const { variant: lineOneVariant } = useMotion(lineOne, {
-    initial: {
-      x: 0,
-      y: -menuLineDisplacement,
-      width: 20,
-      rotate: 0,
-    },
-    enterIn: {
-      width: 40,
-      y: 15,
-      x: 10,
-      rotate: -45,
-    },
-  })
-  const { variant: lineTwoVariant } = useMotion(lineTwo, {
-    initial: {
-      x: 0,
-      y: menuLineDisplacement,
-      width: 20,
-      rotate: 0,
-    },
-    enterIn: {
-      width: 40,
-      y: -15,
-      x: 10,
-      rotate: 45,
-    },
-  })
+const lineOne = '.line-1'
+const lineTwo = '.line-2'
 
-  watch(
-    () => !hasClosingAnimationFinished.value,
-    (val) => {
-      if (val) {
-        lineOneVariant.value = 'enterIn'
-        lineTwoVariant.value = 'enterIn'
-      } else {
-        lineOneVariant.value = 'initial'
-        lineTwoVariant.value = 'initial'
-      }
+const linesEnter = () => {
+  gsap.to(lineOne, {
+    y: 15,
+    x: 10,
+    scaleX: 2,
+    rotate: -45,
+    ease: 'expo',
+    duration: 0.5,
+  })
+  gsap.to(lineTwo, {
+    y: -15,
+    x: 10,
+    scaleX: 2,
+    rotate: 45,
+    ease: 'expo',
+    duration: 0.5,
+  })
+}
+const linesExit = () => {
+  gsap.to(lineOne, {
+    x: 0,
+    y: -menuLineDisplacement,
+    scaleX: 1,
+    rotate: 0,
+    ease: 'power2',
+    duration: 0.3,
+  })
+  gsap.to(lineTwo, {
+    x: 0,
+    y: menuLineDisplacement,
+    scaleX: 1,
+    rotate: 0,
+    ease: 'power2',
+    duration: 0.3,
+  })
+}
+
+watch(
+  () => !hasClosingAnimationFinished.value,
+  (val) => {
+    if (val) {
+      linesEnter()
+    } else {
+      linesExit()
     }
-  )
-})
-const log = console.log
+  }
+)
+
+const toggleMenuButton = () => {
+  toggleIsMenuOpen()
+  if (isMenuOpen) hasClosingAnimationFinished.value = false
+}
 
 import SlideRevealText from 'components/SlideRevealText.vue'
-import { useMotion } from '@vueuse/motion'
 </script>
 
 <template>
   <div
     id="menu-circle"
-    class="fixed top-0 left-0 z-50 text-white bg-gray-800 shadow-2xl duration-700 ease-out origin-center"
-    :class="!hasClosingAnimationFinished ? 'open' : 'close'"
+    class="fixed z-50 text-white bg-gray-800 shadow-2xl"
+    :class="{
+      open: !hasClosingAnimationFinished,
+      close: hasClosingAnimationFinished,
+    }"
   ></div>
   <div
     class="
@@ -94,7 +106,7 @@ import { useMotion } from '@vueuse/motion'
       as="a"
       :href="href"
       class="link"
-      :delay="index * 0.1"
+      :delay="index * 0.15 + 0.6"
       :is-visible="isMenuOpen"
       :on-complete-exit="
         () => {
@@ -106,10 +118,7 @@ import { useMotion } from '@vueuse/motion'
   </div>
   <div
     id="menu-button"
-    @click="
-      toggleIsMenuOpen();
-      if (isMenuOpen) hasClosingAnimationFinished = false
-    "
+    @click="toggleMenuButton"
     class="
       line
       w-10
@@ -127,13 +136,15 @@ import { useMotion } from '@vueuse/motion'
     <div class="line-1"></div>
     <div class="line-2"></div>
   </div>
-  <div
-    class="absolute inset-0 bg-black bg-opacity-0 duration-500 linear"
-    :class="{
-      'bg-opacity-50 z-[49]': isMenuOpen,
-      'z-[-1]': !isMenuOpen,
-    }"
-  ></div>
+  <transition
+    enter-active-class="bg-opacity-0 transition-opacity duration-500 linear"
+    leave-active-class="bg-opacity-0 transition-opacity duration-500 linear"
+  >
+    <div
+      class="hidden absolute inset-0 bg-black bg-opacity-50 duration-500 xl:block linear"
+      v-if="isMenuOpen"
+    ></div>
+  </transition>
 </template>
 
 <style lang="scss" scoped>
@@ -162,25 +173,21 @@ a.link {
 }
 
 #menu-circle {
-  &.open {
-    @apply rounded-none;
-    @apply rotate-0;
-    @apply w-screen h-screen;
+  @apply rotate-0;
+  @apply w-screen h-screen;
+  clip-path: circle(100%);
+  transition: clip-path 0.6s cubic-bezier(0.33, 1, 0.68, 1);
 
-    @screen xl {
-      width: 50vw;
-    }
+  @screen xl {
+    width: 50vw;
   }
 
   &.close {
-    border-radius: 50%;
-    @apply w-10 h-10;
-    @apply duration-300;
-    transform: translateX(0.75rem) translateY(2.5rem);
+    clip-path: circle(1.25rem at 2rem 3.75rem);
+    transition: clip-path 0.6s cubic-bezier(0.45, 0, 0.55, 1);
 
     @screen xl {
-      --x: calc(calc(50vw - 600px) + 0.85rem);
-      transform: translateX(var(--x)) translateY(2.5rem) rotate(45deg);
+      clip-path: circle(1.25rem at calc(calc(50vw - 600px) + 2.1rem) 3.75rem);
     }
   }
 }
