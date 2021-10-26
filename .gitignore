@@ -4,3 +4,6 @@ dist
 dist-ssr
 node_modules
 **/_*
+
+# Local Netlify folder
+.netlify

@@ -68,7 +68,7 @@ import { useMotion } from '@vueuse/motion'
 <template>
   <div
     id="menu-circle"
-    class="fixed z-50 left-0 top-0 text-white bg-gray-800 shadow-2xl duration-700 ease-out origin-center"
+    class="fixed top-0 left-0 z-50 text-white bg-gray-800 shadow-2xl duration-700 ease-out origin-center"
     :class="!hasClosingAnimationFinished ? 'open' : 'close'"
   ></div>
   <div
@@ -76,9 +76,9 @@ import { useMotion } from '@vueuse/motion'
       container
       h-[60%]
       top-[150px]
-      lg:top-[300px]
+      xl:top-[300px]
       left-3
-      lg:left-[calc(calc(50vw-600px)+0.85rem)]
+      xl:left-[calc(calc(50vw-600px)+0.85rem)]
       grid grid-rows-4
       content-center
       fixed
@@ -118,7 +118,7 @@ import { useMotion } from '@vueuse/motion'
       z-[53]
       top-10
       left-3
-      lg:left-[calc(calc(50vw-600px)+0.85rem)]
+      xl:left-[calc(calc(50vw-600px)+0.85rem)]
       grid
       place-content-center
       cursor-pointer
@@ -128,9 +128,9 @@ import { useMotion } from '@vueuse/motion'
     <div class="line-2"></div>
   </div>
   <div
+    class="absolute inset-0 bg-black bg-opacity-0 duration-500 linear"
     :class="{
-      'absolute inset-0 linear duration-500': true,
-      'bg-black/50 z-[49]': isMenuOpen,
+      'bg-opacity-50 z-[49]': isMenuOpen,
       'z-[-1]': !isMenuOpen,
     }"
   ></div>
@@ -167,7 +167,7 @@ a.link {
     @apply rotate-0;
     @apply w-screen h-screen;
 
-    @screen lg {
+    @screen xl {
       width: 50vw;
     }
   }
@@ -178,7 +178,7 @@ a.link {
     @apply duration-300;
     transform: translateX(0.75rem) translateY(2.5rem);
 
-    @screen lg {
+    @screen xl {
       --x: calc(calc(50vw - 600px) + 0.85rem);
       transform: translateX(var(--x)) translateY(2.5rem) rotate(45deg);
     }
