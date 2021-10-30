@@ -108,7 +108,7 @@ import SlideRevealText from 'components/SlideRevealText.vue'
       as="a"
       :href="href"
       class="link"
-      :delay="index * 0.15 + 0.3"
+      :delay="index * 0.1 + 0.3"
       :is-visible="isMenuOpen"
       :on-complete-exit="
         () => {

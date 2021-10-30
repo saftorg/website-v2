@@ -18,8 +18,8 @@ tryOnMounted(() => {
 </script>
 
 <template>
-  <Loading v-if="!imgsAreLoaded" />
-  <div v-else>
+  <Loading v-if="!imgsAreLoaded"/>
+  <div>
     <Menu />
 
     <Home />
@@ -75,7 +75,6 @@ tryOnMounted(() => {
     will-change: transform;
   }
 }
-
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   font-size: 14px;
@@ -83,4 +82,7 @@ tryOnMounted(() => {
   @apply text-gray-800;
   @apply overflow-x-hidden;
 }
+
+body {@apply bg-blue-100;}
+
 </style>
