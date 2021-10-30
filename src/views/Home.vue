@@ -3,19 +3,24 @@ const random = (start: number, end: number) =>
   Math.floor(Math.random() * (end - start)) + start
 
 const randomGen = () => random(-50, 50)
+const menu = useStore(isMenuOpen)
 
-useIntervalFn(() => {
-  Array.from(document.querySelectorAll('.circle')).map((el) => {
-    el.setAttribute(
-      'style',
-      `transform: translateX(${randomGen()}%) translateY(${randomGen()}%);`
-    )
-  }, 3000)
-})
+if (!menu.value) {
+  useIntervalFn(() => {
+    Array.from(document.querySelectorAll('.circle')).map((el) => {
+      el.setAttribute(
+        'style',
+        `transform: translateX(${randomGen()}%) translateY(${randomGen()}%);`
+      )
+    }, 8000)
+  })
+}
 
 import ParallaxMedia from 'components/ParallaxMedia.vue'
 import SlideRevealText from 'components/SlideRevealText.vue'
 import { useIntervalFn } from '@vueuse/core'
+import { isMenuOpen } from '../store'
+import { useStore } from '@nanostores/vue'
 </script>
 
 <template>
@@ -86,7 +91,7 @@ import { useIntervalFn } from '@vueuse/core'
   filter: blur(64px);
   width: Max(40vw, 30rem);
   height: Max(40vw, 30rem);
-  transition-duration: 3s;
+  transition-duration: 8s;
   will-change: transform;
   @apply transform;
   @apply ease-linear;

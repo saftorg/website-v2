@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, reactive, computed, Ref } from 'vue'
-import { useParallax } from '@vueuse/core'
+import { useParallax, useBreakpoints, breakpointsTailwind } from '@vueuse/core'
 
+const isNotMobileSize = useBreakpoints(breakpointsTailwind).greater("lg")
 const target: Ref<HTMLElement | null> = ref(null)
 const isOutside = ref(true)
 const parallax = reactive(useParallax(target))
@@ -25,6 +26,7 @@ const props = defineProps({
 
 <template>
   <div
+    v-if="isNotMobileSize"
     ref="target"
     class="transition-transform duration-300 ease-out transform-gpu will-change-transform shadow-3xl"
     :class="props.class"
@@ -34,4 +36,5 @@ const props = defineProps({
   >
     <slot />
   </div>
+  <slot v-else/>
 </template>

@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { useToggle } from '@vueuse/core'
+import { useStore } from '@nanostores/vue'
+import * as store from '../store'
 import gsap from 'gsap'
 
-const [isMenuOpen, toggleIsMenuOpen] = useToggle(false)
+const isMenuOpen = useStore(store.isMenuOpen)
+const toggleIsMenuOpen = store.toggleIsMenuOpen
+const hasClosingAnimationFinished = ref(true)
 const menuLineDisplacement = 4
 const lineOneTemplate = `translateY(-${menuLineDisplacement}px)`
 const lineTwoTemplate = `translateY(${menuLineDisplacement}px)`
@@ -14,7 +17,6 @@ const links: { title: string; href: string }[] = [
   { title: 'Areopagus', href: '#' },
   { title: 'Podcast', href: '#' },
 ]
-const hasClosingAnimationFinished = ref(true)
 const lineOne = '.line-1'
 const lineTwo = '.line-2'
 
@@ -77,7 +79,7 @@ import SlideRevealText from 'components/SlideRevealText.vue'
 <template>
   <div
     id="menu-circle"
-    class="fixed z-50 text-white bg-gray-800 shadow-2xl"
+    class="fixed z-50 text-white shadow-2xl bg-gray-800/95"
     :class="{
       open: !hasClosingAnimationFinished,
       close: hasClosingAnimationFinished,
@@ -106,7 +108,7 @@ import SlideRevealText from 'components/SlideRevealText.vue'
       as="a"
       :href="href"
       class="link"
-      :delay="index * 0.15 + 0.6"
+      :delay="index * 0.15 + 0.3"
       :is-visible="isMenuOpen"
       :on-complete-exit="
         () => {
@@ -136,15 +138,6 @@ import SlideRevealText from 'components/SlideRevealText.vue'
     <div class="line-1"></div>
     <div class="line-2"></div>
   </div>
-  <transition
-    enter-active-class="bg-opacity-0 transition-opacity duration-500 linear"
-    leave-active-class="bg-opacity-0 transition-opacity duration-500 linear"
-  >
-    <div
-      class="hidden absolute inset-0 bg-black bg-opacity-50 duration-500 xl:block linear"
-      v-if="isMenuOpen"
-    ></div>
-  </transition>
 </template>
 
 <style lang="scss" scoped>
@@ -175,12 +168,9 @@ a.link {
 #menu-circle {
   @apply rotate-0;
   @apply w-screen h-screen;
+  @apply backdrop-blur-md;
   clip-path: circle(100%);
-  transition: clip-path 1.2s cubic-bezier(0.87, 0, 0.13, 1);
-
-  @screen xl {
-    width: 50vw;
-  }
+  transition: clip-path 0.8s cubic-bezier(0.87, 0, 0.13, 1);
 
   &.close {
     clip-path: circle(1.25rem at 2rem 3.75rem);

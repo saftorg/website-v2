@@ -1,6 +1,6 @@
 {
-  "name": "my-vue-app",
-  "version": "0.0.0",
+  "name": "saft-website",
+  "version": "0.0.1",
   "scripts": {
     "dev": "vite --host",
     "build": "vite-ssg build",
@@ -23,10 +23,11 @@
     "vue-tsc": "^0.3.0"
   },
   "dependencies": {
+    "@nanostores/vue": "^0.1.0",
     "@vueuse/core": "^6.6.2",
-    "@vueuse/motion": "^2.0.0-beta.4",
     "gsap": "^3.8.0",
     "imagesloaded": "^4.1.4",
+    "nanostores": "^0.5.4",
     "vue": "^3.2.20"
   }
 }
