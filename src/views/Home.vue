@@ -65,9 +65,9 @@ import { useStore } from '@nanostores/vue'
       >
         <parallax-media class="w-full">
           <img
-            srcset="../assets/head_photo.webp?nf_resize=fit&w=400 400w ../assets/head_photo.webp?nf_resize=fit&w=600 600w"
+            srcset="../assets/head_photo@400w.webp 400w, ../assets/head_photo@1000w.webp 600w"
             sizes="(max-width: 1024px) 400px, 600px"
-            src="../assets/head_photo.webp?nf_resize=fit&w=600"
+            src="../assets/head_photo@1000w.png"
             alt="Head Image"
           />
         </parallax-media>
