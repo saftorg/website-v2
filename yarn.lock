@@ -277,10 +277,10 @@
     "@vueuse/shared" "6.6.2"
     "vue-demi" "*"
 
-"@vueuse/head@^0.5.1":
-  "integrity" "sha512-xt6qgtItb4z/7vp664opQc0c2+ZoU9itMfvpmg4+h0uJcEnhl7LYxO4V+G8H7EVki7SyXDIFMfoCiCFaJrArmg=="
-  "resolved" "https://registry.npmjs.org/@vueuse/head/-/head-0.5.1.tgz"
-  "version" "0.5.1"
+"@vueuse/head@^0.5.1", "@vueuse/head@^0.6.0":
+  "integrity" "sha512-fi7ZjkMpEAUtTT6iR5wgL2HkX1+3zbrmbpcwU//RgJIWEr5b42jk8E9yOheaC2dYAAHzelAllVpX0pDmhcTXuw=="
+  "resolved" "https://registry.npmjs.org/@vueuse/head/-/head-0.6.0.tgz"
+  "version" "0.6.0"
 
 "@vueuse/shared@^6.6.2", "@vueuse/shared@6.6.2":
   "integrity" "sha512-wY4GAM5G1vlLRS4O71vw7PH5G5/Yub0xb2+OyIyDjZW/1S5J6bdkpFBp6AJbZ5k3ACtjTDxlUYhPQnrdJTwzTA=="

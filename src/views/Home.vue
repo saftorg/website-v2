@@ -64,7 +64,12 @@ import { useStore } from '@nanostores/vue'
         class="container flex flex-wrap grid-cols-2 col-span-full row-start-2 items-center place-content-center my-14 space-y-10 md:grid md:my-40 md:space-x-16"
       >
         <parallax-media class="w-full">
-          <img src="@/assets/head.webp" alt="Head Image" />
+          <img
+            srcset="../assets/head_photo.webp?nf_resize=fit&w=400 400w ../assets/head_photo.webp?nf_resize=fit&w=600 600w"
+            sizes="(max-width: 1024px) 400px, 600px"
+            src="../assets/head_photo.webp?nf_resize=fit&w=600"
+            alt="Head Image"
+          />
         </parallax-media>
         <div>
           <slide-reveal-text
