@@ -18,7 +18,7 @@ tryOnMounted(() => {
 </script>
 
 <template>
-  <Loading v-if="!imgsAreLoaded"/>
+  <Loading v-if="!imgsAreLoaded" />
   <div>
     <Menu />
 
@@ -27,29 +27,35 @@ tryOnMounted(() => {
 </template>
 
 <style lang="scss">
+@use 'sass:math';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 @import './assets/fonts/joyride/stylesheet.css';
 @import './assets/fonts/manrope/stylesheet.css';
 
+$font-size: 14;
+@mixin vw($size, $leading) {
+  $screen-size: 1800;
+  font-size: max(#{$size}rem, #{math.div($size * $font-size, $screen-size) * 100vw});
+  line-height: max(#{$leading}rem, #{math.div($leading * $font-size, $screen-size) * 100vw});
+}
+
 @layer base {
   h1 {
-    @apply text-4xl;
+    @include vw(2.25, 1.25);
     @apply font-joyride;
-    @apply leading-tight;
   }
 
   h2 {
-    @apply text-2xl;
+    @include vw(1.5, 1);
     @apply font-joyride;
-    @apply leading-none;
   }
 
   p {
     @apply font-manrope;
     @apply max-w-prose;
-    @apply text-base;
+    @include vw(1, 1.5);
   }
 
   .clip {
@@ -75,14 +81,16 @@ tryOnMounted(() => {
     will-change: transform;
   }
 }
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-size: #{$font-size}px;
   @apply antialiased;
   @apply text-gray-800;
   @apply overflow-x-hidden;
 }
 
-body {@apply bg-blue-100;}
-
+body {
+  @apply bg-blue-100;
+}
 </style>
