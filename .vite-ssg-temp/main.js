@@ -254,9 +254,9 @@ const _sfc_main$3 = /* @__PURE__ */ vue.defineComponent({
     breakpoints.smaller("md");
     core.tryOnMounted(async () => {
       var _a, _b, _c, _d;
-      const scroller = "[data-scroll-container]";
+      const scroller = document.querySelector("[data-scroll-container]");
       const scroll = new LocomotiveScroll__default["default"]({
-        el: document.querySelector(scroller),
+        el: scroller,
         smooth: true
       });
       scroll.on("scroll", ScrollTrigger__default["default"].update);
@@ -272,12 +272,13 @@ const _sfc_main$3 = /* @__PURE__ */ vue.defineComponent({
             height: window.innerHeight
           };
         },
-        pinType: document.querySelector(scroller).style.transform ? "transform" : "fixed"
+        pinType: scroller.style.transform ? "transform" : "fixed"
       });
       ScrollTrigger__default["default"].defaults({
         immediateRender: false,
         scroller
       });
+      gsap__default["default"].registerPlugin(ScrollTrigger__default["default"]);
       let tl = gsap__default["default"].timeline({
         scrollTrigger: {
           trigger: "#head",
@@ -287,6 +288,8 @@ const _sfc_main$3 = /* @__PURE__ */ vue.defineComponent({
           scrub: 1
         }
       });
+      ScrollTrigger__default["default"].addEventListener("refresh", () => scroll.update());
+      ScrollTrigger__default["default"].refresh();
       instances.forEach((geometry, i) => {
         var _a2;
         const { position, scale } = geometry;
@@ -328,7 +331,6 @@ const _sfc_main$3 = /* @__PURE__ */ vue.defineComponent({
         },
         alpha: "",
         antialias: "",
-        pointer: "",
         resize: "window"
       }, {
         default: vue.withCtx((_, _push2, _parent2, _scopeId) => {

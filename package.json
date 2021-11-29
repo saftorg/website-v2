@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "vite --host",
-    "build": "vite-ssg build",
+    "build": "vite build",
     "serve": "npm run build; vite preview"
   },
   "devDependencies": {
@@ -11,7 +11,7 @@
     "@types/three": "^0.134.0",
     "@vitejs/plugin-vue": "^1.9.0",
     "@vueuse/head": "^0.6.0",
-    "@vueuse/shared": "^6.6.2",
+    "@vueuse/shared": "^7.1.2",
     "autoprefixer": "^10.3.6",
     "critters": "^0.0.10",
     "node-sass": "^6.0.1",
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@nanostores/vue": "^0.1.0",
-    "@vueuse/core": "^6.6.2",
+    "@vueuse/core": "^7.1.2",
     "gsap": "^3.8.0",
     "imagesloaded": "^4.1.4",
     "locomotive-scroll": "^4.1.3",
