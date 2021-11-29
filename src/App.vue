@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import Home from 'views/Home.vue'
-import Menu from 'components/Menu.vue'
+import Menu from './components/Menu.vue'
 import imagesLoaded from 'imagesloaded'
-import Loading from './views/Loading.vue'
+import Loading from 'views/Loading.vue'
 import { tryOnMounted } from '@vueuse/core'
-
 const imgsAreLoaded = ref(false)
 
 tryOnMounted(() => {
@@ -19,43 +18,32 @@ tryOnMounted(() => {
 
 <template>
   <Loading v-if="!imgsAreLoaded" />
-  <div>
-    <Menu />
-
-    <Home />
-  </div>
+  <Menu />
+  <Home />
 </template>
 
 <style lang="scss">
-@use 'sass:math';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 @import './assets/fonts/joyride/stylesheet.css';
 @import './assets/fonts/manrope/stylesheet.css';
 
-$font-size: 14;
-@mixin vw($size, $leading) {
-  $screen-size: 1800;
-  font-size: max(#{$size}rem, #{math.div($size * $font-size, $screen-size) * 100vw});
-  line-height: max(#{$leading}rem, #{math.div($leading * $font-size, $screen-size) * 100vw});
-}
-
 @layer base {
   h1 {
-    @include vw(2.25, 1.25);
+    @apply text-f-8xl;
     @apply font-joyride;
   }
 
   h2 {
-    @include vw(1.5, 1);
+    @apply text-f-2xl;
     @apply font-joyride;
   }
 
   p {
     @apply font-manrope;
+    @apply text-f-xl;
     @apply max-w-prose;
-    @include vw(1, 1.5);
   }
 
   .clip {
@@ -71,7 +59,6 @@ $font-size: 14;
   }
 
   .hero {
-    @apply px-3;
     @apply w-screen;
   }
 }
