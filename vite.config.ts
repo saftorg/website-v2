@@ -14,6 +14,13 @@ export default defineConfig({
       { find: 'views', replacement: '/src/views' },
       { find: 'components', replacement: '/src/components' },
     ]
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: "@import '/public/main.scss';"
+      }
+    }
   }
 })
 

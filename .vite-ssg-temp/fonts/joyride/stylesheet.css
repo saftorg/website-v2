@@ -1,0 +1,144 @@
+@font-face {
+    font-family: 'Joyride ALT';
+    src: url('JoyrideALTItalic.woff2') format('woff2'),
+        url('JoyrideALTItalic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Joyride ALT';
+    src: url('JoyrideALT.woff2') format('woff2'),
+        url('JoyrideALT.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Joyride ALT Outline';
+    src: url('JoyrideALTOutlineItalic.woff2') format('woff2'),
+        url('JoyrideALTOutlineItalic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Joyride ALT Outline';
+    src: url('JoyrideALTOutline.woff2') format('woff2'),
+        url('JoyrideALTOutline.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Joyride WIDE';
+    src: url('JoyrideWIDE.woff2') format('woff2'),
+        url('JoyrideWIDE.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Joyride STD Outline';
+    src: url('JoyrideSTDOutlineItalic.woff2') format('woff2'),
+        url('JoyrideSTDOutlineItalic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Joyride EXT';
+    src: url('JoyrideEXTItalic.woff2') format('woff2'),
+        url('JoyrideEXTItalic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Joyride STD Outline';
+    src: url('JoyrideSTDOutline.woff2') format('woff2'),
+        url('JoyrideSTDOutline.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Joyride EXT Outline';
+    src: url('JoyrideEXTOutline.woff2') format('woff2'),
+        url('JoyrideEXTOutline.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Joyride EXT';
+    src: url('JoyrideEXT.woff2') format('woff2'),
+        url('JoyrideEXT.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Joyride WIDE';
+    src: url('JoyrideWIDEItalic.woff2') format('woff2'),
+        url('JoyrideWIDEItalic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Joyride EXT Outline';
+    src: url('JoyrideEXTOutlineItalic.woff2') format('woff2'),
+        url('JoyrideEXTOutlineItalic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Joyride STD';
+    src: url('JoyrideSTD.woff2') format('woff2'),
+        url('JoyrideSTD.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Joyride STD';
+    src: url('JoyrideSTDItalic.woff2') format('woff2'),
+        url('JoyrideSTDItalic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Joyride WIDE Outline';
+    src: url('JoyrideWIDEOutlineItalic.woff2') format('woff2'),
+        url('JoyrideWIDEOutlineItalic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Joyride WIDE Outline';
+    src: url('JoyrideWIDEOutline.woff2') format('woff2'),
+        url('JoyrideWIDEOutline.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
