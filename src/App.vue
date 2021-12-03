@@ -30,19 +30,52 @@ tryOnMounted(() => {
 @import './assets/fonts/manrope/stylesheet.css';
 
 @layer base {
-  h1 {
-    @apply text-f-8xl;
+  h1,
+  .h1 {
+    @apply text-[14vw];
+    @apply leading-[1.1];
+    @apply md:text-f-8xl;
     @apply font-joyride;
   }
 
-  h2 {
+  .grid-cols-24 {
+    grid-template-columns:
+      minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr)
+      minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(
+        0vw,
+        1fr
+      )
+      minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(
+        0vw,
+        1.3fr
+      )
+      minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(
+        0vw,
+        1fr
+      )
+      minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr);
+  }
+
+  h2,
+  .h2 {
+    @apply text-[6.5vw];
+    @apply md:text-f-4xl;
+    @apply font-manrope;
+    @apply font-semibold;
+  }
+
+  h3,
+  .h3 {
     @apply text-f-2xl;
     @apply font-joyride;
   }
 
-  p {
+  p,
+  .p {
     @apply font-manrope;
-    @apply text-f-xl;
+    @apply font-semibold;
+    @apply text-[4.5vw];
+    @apply md:text-f-2xl;
     @apply max-w-prose;
   }
 
@@ -59,7 +92,43 @@ tryOnMounted(() => {
   }
 
   .hero {
-    @apply w-screen;
+    @apply mx-f-24;
+  }
+
+  .wrapper {
+    @apply mx-f-24;
+    @apply grid;
+    @apply grid-cols-12;
+    @apply grid-rows-[auto];
+    grid-row-gap: 3.888888888888889vw;
+    grid-template-columns:
+      minmax(0vw, 1fr) minmax(0vw, 1.1fr) minmax(0vw, 1fr) minmax(0vw, 1.1fr) minmax(
+        0vw,
+        1fr
+      )
+      minmax(0vw, 1.1fr) minmax(0vw, 1fr) minmax(0vw, 1.1fr) minmax(0vw, 1fr) minmax(
+        0vw,
+        1.1fr
+      )
+      minmax(0vw, 1fr) minmax(0vw, 1.1fr) minmax(0vw, 1fr) minmax(0vw, 1.1fr) minmax(0vw, 1fr);
+    @screen md {
+      grid-row-gap: 0px;
+      grid-template-columns:
+        minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr)
+        minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(
+          0vw,
+          1fr
+        )
+        minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(
+          0vw,
+          1.3fr
+        )
+        minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(
+          0vw,
+          1fr
+        )
+        minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr);
+    }
   }
 }
 

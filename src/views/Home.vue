@@ -16,10 +16,13 @@ const { randFloat: rnd, randFloatSpread: rndFS } = MathUtils
 
 import Hero from './Head.vue'
 
-import { tryOnMounted, useBreakpoints, breakpointsTailwind } from '@vueuse/core'
-import { isMenuOpen } from '../store'
+import {
+  tryOnMounted,
+  useBreakpoints,
+  breakpointsTailwind,
+  useTimeoutFn,
+} from '@vueuse/core'
 
-import { useStore } from '@nanostores/vue'
 import { ref, nextTick } from 'vue'
 
 import gsap from 'gsap'
@@ -85,15 +88,14 @@ tryOnMounted(async () => {
 
   let tl = gsap.timeline({
     scrollTrigger: {
-      trigger: '#head',
+      trigger: '#head-section',
       start: 'top top',
-      endTrigger: '#areopagus',
+      endTrigger: '#about-section',
       end: 'bottom bottom',
       scrub: 1,
     },
   })
   ScrollTrigger.addEventListener('refresh', () => scroll.update())
-  ScrollTrigger.refresh()
   // init instanced mesh matrix
   instances.forEach((geometry, i) => {
     const { position, scale } = geometry
@@ -118,6 +120,13 @@ tryOnMounted(async () => {
     x: '+=10',
   })
   tl.to(
+    '[data-scroll-container]',
+    {
+      backgroundColor: '#4F46E5',
+    },
+    '<0'
+  )
+  tl.to(
     sceneVal!,
     {
       y: '+=0.4',
@@ -135,48 +144,45 @@ tryOnMounted(async () => {
     },
     '<0'
   )
+
+  useTimeoutFn(() => {
+    ScrollTrigger.refresh()
+  }, 300)
 })
 </script>
 
 <template>
-  <div data-scroll-container>
-    <section data-scroll-section class="absolute top-0 z-[-1]">
-      <div data-scroll id="head" class="h-screen bg-[#8e8be4] hero"></div>
-      <div data-scroll id="about" class="h-screen bg-pink-300 hero"></div>
-      <div data-scroll id="areopagus" class="h-screen bg-blue-300 hero"></div>
-    </section>
-    <div data-scroll-section>
-      <div
-        data-scroll
-        data-scroll-sticky
-        data-scroll-target="#home"
-        class="fixed z-[-1]"
-      >
-        <Renderer ref="renderer" alpha antialias resize="window">
-          <Camera ref="camera" :position="{ z: 1000 }" :fov="3" />
-          <Scene ref="scene">
-            <ambient-light color="#ffffff" />
-            <point-light
-              ref="light"
-              color="#a78bfa"
-              :position="{ y: 20 }"
-              :intensity="0.7"
+  <div data-scroll-container class="bg-purple-400">
+    <hero id="home" />
+    <div
+      data-scroll
+      data-scroll-sticky
+      data-scroll-target="#home"
+      class="absolute top-0 z-[-1]"
+    >
+      <Renderer ref="renderer" alpha antialias resize="window">
+        <Camera ref="camera" :position="{ z: 1000 }" :fov="3" />
+        <Scene ref="scene">
+          <ambient-light color="#ffffff" />
+          <point-light
+            ref="light"
+            color="#a78bfa"
+            :position="{ y: 20 }"
+            :intensity="0.7"
+          />
+          <instanced-mesh ref="imesh" :count="instances.length">
+            <sphere-geometry
+              :radius="10"
+              :width-segments="50"
+              :height-segments="40"
             />
-            <instanced-mesh ref="imesh" :count="instances.length">
-              <sphere-geometry
-                :radius="10"
-                :width-segments="50"
-                :height-segments="40"
-              />
-              <standard-material color="#aaaaaa" />
-            </instanced-mesh>
-          </Scene>
-          <effect-composer>
-            <render-pass />
-          </effect-composer>
-        </Renderer>
-      </div>
-      <hero id="home" />
+            <standard-material color="#aaaaaa" />
+          </instanced-mesh>
+        </Scene>
+        <effect-composer>
+          <render-pass />
+        </effect-composer>
+      </Renderer>
     </div>
   </div>
 </template>

@@ -13,6 +13,13 @@ module.exports = {
       },
       fontFamily: {
         joyride: ['Joyride STD', 'sans-serif'],
+        'joyride-out': ['Joyride STD Outline', 'sans-serif'],
+        'joyride-alt': ['Joyride ALT', 'sans-serif'],
+        'joyride-alt-out': ['Joyride ALT Outline', 'sans-serif'],
+        'joyride-ext': ['Joyride EXT', 'sans-serif'],
+        'joyride-ext-out': ['Joyride EXT Outline', 'sans-serif'],
+        'joyride-wide': ['Joyride WIDE', 'sans-serif'],
+        'joyride-wide-out': ['Joyride WIDE Outline', 'sans-serif'],
         manrope: ['Manrope', 'sans-serif'],
       },
       spacing: {
