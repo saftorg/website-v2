@@ -66,7 +66,7 @@ import SlideRevealText from 'components/SlideRevealText.vue'
         class="overflow-hidden wrapper -mt-f-80"
       >
         <img
-          src="../assets/ep 62.jpg"
+          src="../assets/ep-62.jpg"
           alt="Episode"
           class="md:col-start-[12] md:col-end-[23]"
         />
@@ -77,7 +77,7 @@ import SlideRevealText from 'components/SlideRevealText.vue'
         class="overflow-hidden wrapper -mt-f-60"
       >
         <img
-          src="../assets/Event Poster.png"
+          src="../assets/Event-Poster.png"
           alt="Episode"
           class="md:col-start-[18] md:col-end-[24]"
         />
