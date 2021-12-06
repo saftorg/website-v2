@@ -138,7 +138,7 @@ import SlideRevealText from 'components/SlideRevealText.vue'
           ut orci, integer massa mauris.
         </h2>
       </div>
-      <div v-for="i in 3">
+      <div v-for="i in 4">
         <h3
           data-scroll
           data-scroll-direction="horizontal"

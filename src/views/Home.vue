@@ -23,7 +23,7 @@ import {
   useTimeoutFn,
 } from '@vueuse/core'
 
-import { ref, nextTick } from 'vue'
+import { ref, nextTick, onMounted } from 'vue'
 
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
@@ -59,6 +59,26 @@ tryOnMounted(async () => {
     smooth: true,
   })
 
+  instances.forEach((geometry, i) => {
+    const { position, scale } = geometry
+    dummyO.position.copy(position)
+    dummyO.scale.set(scale, scale, scale)
+    dummyO.updateMatrix()
+    imesh.value?.mesh!.setMatrixAt(i, dummyO.matrix)
+  })
+
+  imesh.value!.mesh!.instanceMatrix.needsUpdate = true
+
+  const lightVal = light.value?.light
+  const cameraVal = camera.value?.camera.position
+  const sceneVal = scene.value?.scene.rotation
+  renderer.value?.onBeforeRender(() => {
+    const { pointer } = renderer.value!.three
+    lightVal.position.copy(pointer!.positionV3)
+    lightVal.position.z = 10
+    sceneVal.z += 0.001
+  })
+
   scroll.on('scroll', ScrollTrigger.update)
   ScrollTrigger.scrollerProxy(scroller, {
     scrollTop(value) {
@@ -81,51 +101,30 @@ tryOnMounted(async () => {
 
   ScrollTrigger.defaults({
     immediateRender: false,
-    scroller: scroller,
   })
-
-  gsap.registerPlugin(ScrollTrigger)
 
   let tl = gsap.timeline({
     scrollTrigger: {
       trigger: '#head-section',
-      start: 'top top',
       endTrigger: '#about-section',
+      scroller: scroller,
+      start: 'top top',
       end: 'bottom bottom',
       scrub: 1,
     },
   })
-  ScrollTrigger.addEventListener('refresh', () => scroll.update())
   // init instanced mesh matrix
-  instances.forEach((geometry, i) => {
-    const { position, scale } = geometry
-    dummyO.position.copy(position)
-    dummyO.scale.set(scale, scale, scale)
-    dummyO.updateMatrix()
-    imesh.value?.mesh!.setMatrixAt(i, dummyO.matrix)
-  })
-
-  imesh.value!.mesh!.instanceMatrix.needsUpdate = true
-
-  const lightVal = light.value?.light
-  const cameraVal = camera.value?.camera.position
-  const sceneVal = scene.value?.scene.rotation
-  renderer.value?.onBeforeRender(() => {
-    const { pointer } = renderer.value!.three
-    lightVal.position.copy(pointer!.positionV3)
-    lightVal.position.z = 10
-    sceneVal.z += 0.001
-  })
-  tl.to(cameraVal!, {
-    x: '+=10',
-  })
   tl.to(
-    '[data-scroll-container]',
+    scroller,
     {
       backgroundColor: '#4F46E5',
     },
     '<0'
   )
+
+  tl.to(cameraVal!, {
+    x: '+=10',
+  })
   tl.to(
     sceneVal!,
     {
@@ -144,10 +143,11 @@ tryOnMounted(async () => {
     },
     '<0'
   )
+  ScrollTrigger.addEventListener('refresh', () => scroll.update())
 
   useTimeoutFn(() => {
     ScrollTrigger.refresh()
-  }, 300)
+  }, 1000)
 })
 </script>
 
