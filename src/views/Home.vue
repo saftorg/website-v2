@@ -12,7 +12,6 @@ import {
   RenderPass,
 } from 'troisjs'
 import { Object3D, MathUtils, Vector3 } from 'three'
-const { randFloat: rnd, randFloatSpread: rndFS } = MathUtils
 
 import Hero from './Head.vue'
 
@@ -23,11 +22,12 @@ import {
   useTimeoutFn,
 } from '@vueuse/core'
 
-import { ref, nextTick, onMounted } from 'vue'
+import { ref } from 'vue'
 
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
 import LocomotiveScroll from 'locomotive-scroll'
+import { autoInit } from 'butter-slider'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -53,10 +53,14 @@ const breakpoints = useBreakpoints(breakpointsTailwind)
 const isSmallScreen = breakpoints.smaller('md')
 
 tryOnMounted(async () => {
+  autoInit()
   const scroller = document.querySelector('[data-scroll-container]')!
   const scroll = new LocomotiveScroll({
     el: scroller,
     smooth: true,
+    tablet: { smooth: true },
+    smartphone: { smooth: true },
+    reloadOnContextChange: true,
   })
 
   instances.forEach((geometry, i) => {
@@ -69,13 +73,9 @@ tryOnMounted(async () => {
 
   imesh.value!.mesh!.instanceMatrix.needsUpdate = true
 
-  const lightVal = light.value?.light
   const cameraVal = camera.value?.camera.position
   const sceneVal = scene.value?.scene.rotation
   renderer.value?.onBeforeRender(() => {
-    const { pointer } = renderer.value!.three
-    lightVal.position.copy(pointer!.positionV3)
-    lightVal.position.z = 10
     sceneVal.z += 0.001
   })
 
@@ -103,28 +103,54 @@ tryOnMounted(async () => {
     immediateRender: false,
   })
 
+  gsap.fromTo(
+    '.zoom-in',
+    {
+      scale: 0,
+      ease: 'power.out',
+      duration: 0.5,
+      scrollTrigger: {
+        scroller,
+        trigger: '.zoom-in',
+      },
+    },
+    {
+      scale: 1,
+    }
+  )
+
   let tl = gsap.timeline({
+    ease: 'power.inOut',
     scrollTrigger: {
+      scroller,
       trigger: '#head-section',
-      endTrigger: '#about-section',
-      scroller: scroller,
+      endTrigger: '#areopagus-section',
       start: 'top top',
       end: 'bottom bottom',
       scrub: 1,
     },
   })
-  // init instanced mesh matrix
+
+  tl.to(scroller, {
+    backgroundColor: '#4F46E5',
+  })
+
   tl.to(
-    scroller,
+    '#bg-circle',
     {
-      backgroundColor: '#4F46E5',
+      backgroundColor: '#FFFFFF',
     },
     '<0'
   )
 
-  tl.to(cameraVal!, {
-    x: '+=10',
-  })
+  tl.to(
+    cameraVal!,
+    {
+      x: '+=10',
+    },
+    '<0'
+  )
+
   tl.to(
     sceneVal!,
     {
@@ -132,10 +158,28 @@ tryOnMounted(async () => {
     },
     '<0'
   )
-  tl.to(cameraVal!, {
-    x: '+=10',
-    y: '-=10',
+
+  tl.to(scroller, {
+    backgroundColor: '#6D28D9',
   })
+
+  tl.to(
+    '#bg-circle',
+    {
+      backgroundColor: '#EF4444',
+    },
+    '<0'
+  )
+
+  tl.to(
+    cameraVal!,
+    {
+      x: '+=10',
+      y: '-=10',
+    },
+    '<0'
+  )
+
   tl.to(
     sceneVal!,
     {
@@ -143,6 +187,7 @@ tryOnMounted(async () => {
     },
     '<0'
   )
+
   ScrollTrigger.addEventListener('refresh', () => scroll.update())
 
   useTimeoutFn(() => {
@@ -152,13 +197,30 @@ tryOnMounted(async () => {
 </script>
 
 <template>
-  <div data-scroll-container class="bg-purple-400">
+  <div data-scroll-container class="bg-purple-500">
     <hero id="home" />
+    <div
+      class="
+        bg-blue-500
+        opacity-20
+        h-[70vw]
+        w-[70vw]
+        absolute
+        top-0
+        rounded-[50%]
+        blur-[64px]
+        z-[-2]
+      "
+      id="bg-circle"
+      data-scroll
+      data-scroll-sticky
+      data-scroll-target="#home"
+    ></div>
     <div
       data-scroll
       data-scroll-sticky
       data-scroll-target="#home"
-      class="absolute top-0 z-[-1]"
+      class="hidden md:block absolute top-0 z-[-1]"
     >
       <Renderer ref="renderer" alpha antialias resize="window">
         <Camera ref="camera" :position="{ z: 1000 }" :fov="3" />
