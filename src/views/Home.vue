@@ -59,7 +59,6 @@ tryOnMounted(async () => {
     el: scroller,
     smooth: true,
     tablet: { smooth: true },
-    smartphone: { smooth: true },
     reloadOnContextChange: true,
   })
 
@@ -217,13 +216,14 @@ tryOnMounted(async () => {
       data-scroll-target="#home"
     ></div>
     <div
+      v-if="!isSmallScreen"
       data-scroll
       data-scroll-sticky
       data-scroll-target="#home"
-      class="hidden md:block absolute top-0 z-[-1]"
+      class="absolute top-0 z-[-1]"
     >
       <Renderer ref="renderer" alpha antialias resize="window">
-        <Camera ref="camera" :position="{ z: 1000 }" :fov="3" />
+        <Camera ref="camera" :position="{z: 90}" :fov="30" />
         <Scene ref="scene">
           <ambient-light color="#ffffff" />
           <point-light

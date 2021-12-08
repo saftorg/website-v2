@@ -10,7 +10,7 @@ import SlideRevealText from 'components/SlideRevealText.vue'
       <slide-reveal-text
         as="h1"
         data-scroll
-        class="col-start-1 col-end-13 md:col-end-[16]"
+        class="col-start-1 col-end-[16]"
         :appear-once="true"
       >
         Seeking Answers, Finding Truth.
@@ -50,10 +50,12 @@ import SlideRevealText from 'components/SlideRevealText.vue'
       </div>
     </div>
 
-    <div id="about-section" class="min-h-screen text-white mt-f-96">
-      <div class="wrapper mt-f-9">
-        <h1 class="col-start-1 col-end-12 lowercase md:col-end-10">About Us</h1>
-        <p class="col-start-1 col-end-12 md:col-end-10 mt-f-9">
+    <div id="about-section" class="min-h-screen text-white md:mt-f-96">
+      <div class="wrapper md:mt-f-9">
+        <h1 class="col-start-1 col-end-[16] lowercase md:col-end-10">
+          About Us
+        </h1>
+        <p class="col-start-1 col-end-[15] md:col-end-9 mt-f-9">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nisl,
           tempus, eget non interdum ipsum, nascetur scelerisque semper. Urna
           quam consequat ultrices commodo cursus cursus eu. A sollicitudin at
@@ -64,85 +66,125 @@ import SlideRevealText from 'components/SlideRevealText.vue'
       <div
         data-scroll
         data-scroll-speed="1"
-        class="overflow-hidden wrapper -mt-f-80"
+        class="overflow-hidden wrapper mt-f-48 md:-mt-f-96"
       >
         <img
           src="../assets/ep-62.jpg"
           alt="Episode"
-          class="md:col-start-[12] md:col-end-[23]"
+          class="col-span-full md:col-start-[12] md:col-end-[23]"
         />
       </div>
       <div
         data-scroll
         data-scroll-speed="3"
-        class="overflow-hidden wrapper -mt-f-60"
+        class="overflow-hidden wrapper -mt-f-80 md:-mt-f-60"
       >
         <img
           src="../assets/Event-Poster.png"
           alt="Episode"
-          class="md:col-start-[18] md:col-end-[24]"
+          class="col-start-7 col-end-[15] md:col-start-[18] md:col-end-[24]"
         />
       </div>
-      <div
-        data-scroll
-        data-scroll-speed="1"
-        class="overflow-hidden wrapper h-f-96 -mt-f-40"
-      >
-        <img
-          src="../assets/jacob-varghese.jpg"
-          alt="Episode"
-          class="md:col-start-2 md:col-end-6 img"
-        />
-      </div>
-      <div
-        data-scroll
-        data-scroll-speed="1.6"
-        class="overflow-hidden wrapper h-f-96 -mt-f-52"
-      >
-        <img
-          src="../assets/ankit-nayak.jpg"
-          alt="Episode"
-          class="md:col-start-5 md:col-end-9 img"
-        />
-      </div>
-      <div
-        data-scroll
-        data-scroll-speed="2"
-        class="overflow-hidden wrapper h-f-96 -mt-f-48"
-      >
-        <img
-          src="../assets/steven-john.jpg"
-          alt="Episode"
-          class="md:col-start-1 md:col-end-5 img"
-        />
-      </div>
-      <div data-scroll data-scroll-speed="2.6" class="wrapper -mt-f-48 zoom-in">
-        <a
-          class="flex relative justify-center content-center md:col-start-4 md:col-end-10"
-          ><div
-            class="
-              relative
-              -top-1/2
-              border
-              rounded-[50%]
-              h-f-48
-              w-screen
-              -rotate-12
-            "
-          ></div>
-          <p class="absolute -top-f-3.5">Meet the team</p></a
-        >
-      </div>
-      <div class="wrapper -mt-f-96 mb-[24vw]">
-        <h2 class="md:col-start-[15] md:col-end-[24]">
+
+      <div class="wrapper mt-f-40 md:mt-[18vw]">
+        <h2 class="col-span-full md:col-start-[15] md:col-end-[24]">
           Sagittis nulla congue duis rutrum ultricies massa. Vitae, semper cras
           ut orci, integer massa mauris.
         </h2>
       </div>
 
-      <div class="wrapper">
-        <div class="col-start-1 col-end-8 bg-gray-50 py-f-6 -rotate-3">
-          <h2 class="font-joyride uppercase text-gray-900 w-max mx-auto text-f-3xl">Endorsements</h2>
+      <div
+        data-scroll
+        data-scroll-speed="1"
+        class="overflow-hidden wrapper h-[60vw] md:h-f-96 mt-f-96 md:-mt-f-96"
+      >
+        <img
+          src="../assets/jacob-varghese.jpg"
+          alt="Episode"
+          class="col-start-2 col-end-10 md:col-start-2 md:col-end-6 img"
+        />
+      </div>
+      <div
+        data-scroll
+        data-scroll-speed="1.6"
+        class="
+          overflow-hidden
+          wrapper
+          h-[60vw]
+          md:h-f-96
+          mt-[-25vw]
+          md:-mt-f-52
+        "
+      >
+        <img
+          src="../assets/ankit-nayak.jpg"
+          alt="Episode"
+          class="col-start-8 col-end-[16] md:col-start-5 md:col-end-9 img"
+        />
+      </div>
+      <div
+        data-scroll
+        data-scroll-speed="2"
+        class="
+          overflow-hidden
+          wrapper
+          h-[60vw]
+          md:h-f-96
+          mt-[-42vw]
+          md:-mt-f-48
+        "
+      >
+        <img
+          src="../assets/steven-john.jpg"
+          alt="Episode"
+          class="col-start-1 col-end-9 md:col-end-5 img"
+        />
+      </div>
+
+      <div
+        data-scroll
+        data-scroll-speed="2.6"
+        class="wrapper mt-[-18vw] md:-mt-f-48 zoom-in"
+      >
+        <a
+          class="
+            flex
+            relative
+            justify-center
+            content-center
+            col-start-6 col-end-[16]
+            md:col-start-4 md:col-end-10
+          "
+        >
+          <div
+            class="
+              relative
+              -top-1/2
+              border
+              rounded-[50%]
+              h-[22vw]
+              md:h-f-48
+              w-screen
+              -rotate-12
+            "
+          ></div>
+          <p class="absolute -top-f-14 md:-top-f-3.5">Meet the team</p></a
+        >
+      </div>
+
+      <div class="relative z-10 wrapper mt-f-96">
+        <div
+          class="
+            col-start-1 col-end-[15]
+            md:col-end-8
+            bg-gray-50
+            -rotate-3
+            py-f-6
+          "
+        >
+          <h2 class="mx-auto w-max text-gray-900 uppercase font-joyride">
+            Endorsements
+          </h2>
         </div>
       </div>
 
@@ -166,21 +208,33 @@ import SlideRevealText from 'components/SlideRevealText.vue'
       </div>
 
       <div class="wrapper mt-f-44"></div>
-      <div class="relative my-f-96">
-        <div class="absolute inset-x-0 top-0 z-10 wrapper">
+      <div class="relative mt-[30vw] md:my-f-96">
+        <div
+          class="absolute z-10 md:inset-x-0 md:top-0 md:left-0 -left-f-12 -top-f-48 md:wrapper"
+        >
           <div
-            class="bg-gray-50 md:col-start-[6] md:col-end-[18] h-f-80 -rotate-2"
+            class="
+              bg-gray-50
+              md:col-start-[6] md:col-end-[18]
+              h-[80vw]
+              w-[130vw]
+              md:h-f-80
+              -rotate-2
+            "
           ></div>
         </div>
         <div class="absolute inset-0 z-20 wrapper">
           <p
             class="
+              col-span-full
               md:col-start-[7] md:col-end-[17]
               self-center
               text-gray-800
               h3
               uppercase
-              text-center text-f-4xl
+              text-center text-[8.8vw]
+              leading-none
+              md:text-f-4xl
             "
           >
             Equipping the <span class="font-joyride-wide">believer</span> to
@@ -189,32 +243,34 @@ import SlideRevealText from 'components/SlideRevealText.vue'
             <span class="font-joyride-ext">anytime, anywhere.</span>
           </p>
         </div>
-        <div v-for="i in 4" :key="i">
-          <h3
-            data-scroll
-            data-scroll-direction="horizontal"
-            :data-scroll-speed="1 + i * 0.1"
-            class="overflow-visible w-max text-f-4xl -ml-f-12"
-          >
-            {{ 'SEEKING ANSWERS FINDING TRUTH '.repeat(6) }}
-          </h3>
-          <h3
-            data-scroll
-            data-scroll-direction="horizontal"
-            :data-scroll-speed="-1 - i * 0.1"
-            class="overflow-visible w-max text-f-4xl -ml-f-12 font-joyride-out"
-          >
-            {{ 'SEEKING ANSWERS FINDING TRUTH '.repeat(6) }}
-          </h3>
+        <div class="hidden md:block">
+          <div v-for="i in 4" :key="i">
+            <h3
+              data-scroll
+              data-scroll-direction="horizontal"
+              :data-scroll-speed="1 + i * 0.1"
+              class="overflow-visible w-max text-f-4xl -ml-f-12"
+            >
+              {{ 'SEEKING ANSWERS FINDING TRUTH '.repeat(6) }}
+            </h3>
+            <h3
+              data-scroll
+              data-scroll-direction="horizontal"
+              :data-scroll-speed="-1 - i * 0.1"
+              class="overflow-visible w-max text-f-4xl -ml-f-12 font-joyride-out"
+            >
+              {{ 'SEEKING ANSWERS FINDING TRUTH '.repeat(6) }}
+            </h3>
+          </div>
         </div>
       </div>
-      <div class="wrapper mt-f-32"></div>
+      <div class="wrapper mt-[120vw] md:mt-f-32"></div>
     </div>
 
     <div id="podcast-section" class="text-white mt-f-24">
       <div data-scroll class="wrapper mt-f-9">
-        <h1 class="col-start-1 col-end-12 lowercase md:col-end-10">Podcast</h1>
-        <p class="col-start-1 col-end-12 md:col-end-8 mt-f-9">
+        <h1 class="col-span-full lowercase md:col-end-10">Podcast</h1>
+        <p class="col-span-full md:col-end-8 mt-f-9">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nisl,
           tempus, eget non interdum ipsum, nascetur scelerisque semper. Urna
           quam consequat ultrices commodo cursus cursus eu. A sollicitudin at
@@ -224,54 +280,78 @@ import SlideRevealText from 'components/SlideRevealText.vue'
       <div
         data-scroll
         data-scroll-speed="1"
-        class="overflow-hidden wrapper h-[24vw] -mt-f-96"
+        class="overflow-hidden wrapper h-[50vw] md:h-[24vw] mt-f-96 md:-mt-f-96"
       >
         <img
           src="../assets/william-lane-craig.jpg"
           alt="Episode"
-          class="md:col-start-11 md:col-end-[16] img"
+          class="col-start-1 col-end-7 md:col-start-11 md:col-end-[16] img"
         />
       </div>
       <div
         data-scroll
         data-scroll-speed="1.5"
-        class="overflow-hidden wrapper h-[24vw] -mt-f-96"
+        class="
+          overflow-hidden
+          wrapper
+          h-[50vw]
+          md:h-[24vw]
+          mt-[-35vw]
+          md:-mt-f-96
+        "
       >
         <img
           src="../assets/frank-turek.jpg"
           alt="Episode"
-          class="md:col-start-[15] md:col-end-[20] img"
+          class="col-start-6 col-end-[12] md:col-start-[15] md:col-end-[20] img"
         />
       </div>
       <div
         data-scroll
         data-scroll-speed="2.2"
-        class="overflow-hidden wrapper h-f-96 mt-[-28vw]"
+        class="
+          overflow-hidden
+          wrapper
+          h-[30vw]
+          md:h-f-96
+          mt-[-68vw]
+          md:mt-[-28vw]
+        "
       >
         <img
           src="../assets/sean-mcdowell.jpg"
           alt="Episode"
-          class="md:col-start-[19] md:col-end-[23] img"
+          class="
+            col-start-[11] col-end-[15]
+            md:col-start-[19] md:col-end-[23]
+            img
+          "
         />
       </div>
       <div
         data-scroll
         data-scroll-speed="2.2"
-        class="overflow-hidden wrapper h-f-96 mt-f-9"
+        class="overflow-hidden wrapper h-[40vw] md:h-f-96 mt-f-96 md:mt-f-9"
       >
         <img
           src="../assets/alisa-childers.jpg"
           alt="Episode"
-          class="md:col-start-[12] md:col-end-[16] img"
+          class="col-start-2 col-end-7 md:col-start-[12] md:col-end-[16] img"
         />
       </div>
-      <div data-scroll data-scroll-speed="2.6" class="wrapper -mt-f-60">
+      <div
+        data-scroll
+        data-scroll-speed="2.6"
+        class="wrapper mt-[-18vw] md:-mt-f-48 zoom-in"
+      >
         <a
           class="
             flex
             relative
             justify-center
             content-center
+            col-start-6
+            col-end-[16]
             md:col-start-[17] md:col-end-[23]
           "
           ><div
@@ -280,12 +360,13 @@ import SlideRevealText from 'components/SlideRevealText.vue'
               -top-1/2
               border
               rounded-[50%]
-              h-f-48
+              h-[22vw]
+              md:h-f-48
               w-screen
               -rotate-12
             "
           ></div>
-          <p class="absolute -top-f-3.5">Meet our guests</p></a
+          <p class="absolute -top-f-14 md:-top-f-3.5">Meet our guests</p></a
         >
       </div>
     </div>
@@ -340,6 +421,8 @@ import SlideRevealText from 'components/SlideRevealText.vue'
       @apply grid;
       @apply grid-rows-[repeat(3,max-content)];
       @apply grid-cols-[max-content,auto];
+      @apply gap-f-28;
+      @apply md:gap-0;
 
       &:first-of-type {
         @apply ml-f-40;
@@ -350,30 +433,46 @@ import SlideRevealText from 'components/SlideRevealText.vue'
       }
 
       img {
-        @apply w-f-80;
-        @apply h-[110%];
+        @apply w-[70vw];
+        @apply h-full;
+        @apply md:w-f-80;
+        @apply md:h-[110%];
+        @apply -ml-f-24;
         @apply object-cover;
-        @apply -ml-f-5;
+        @apply md:-ml-f-5;
         @apply row-span-full;
-        @apply col-start-1;
+        @apply col-span-full;
+        @apply md:col-start-1;
         @apply self-center;
       }
 
       h3 {
+        @apply col-start-2;
         @apply row-start-1;
-        @apply text-f-6xl;
-        @apply mb-f-5;
+        @apply text-[10vw];
+        @apply leading-none;
+        @apply mb-f-16;
+        @apply md:text-f-6xl;
+        @apply md:mb-f-5;
       }
 
       h4 {
+        @apply col-start-2;
         @apply row-start-2;
         @apply font-semibold;
-        @apply mb-f-12;
-        @apply text-f-3xl;
+        @apply mb-f-36;
+        @apply text-[5vw];
+        @apply leading-none;
+        @apply md:mb-f-12;
+        @apply md:text-f-3xl;
       }
 
       p {
-        @apply text-f-xl;
+        @apply col-start-2;
+        @apply row-start-3;
+        @apply text-f-8xl;
+        @apply leading-snug;
+        @apply md:text-f-xl;
       }
     }
   }
