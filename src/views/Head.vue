@@ -218,7 +218,7 @@ import SlideRevealText from 'components/SlideRevealText.vue'
               md:col-start-[6] md:col-end-[18]
               h-[80vw]
               w-[130vw]
-              md:h-f-80
+              md:w-auto md:h-f-80
               -rotate-2
             "
           ></div>
@@ -350,8 +350,7 @@ import SlideRevealText from 'components/SlideRevealText.vue'
             relative
             justify-center
             content-center
-            col-start-6
-            col-end-[16]
+            col-start-6 col-end-[16]
             md:col-start-[17] md:col-end-[23]
           "
           ><div
@@ -405,6 +404,7 @@ import SlideRevealText from 'components/SlideRevealText.vue'
     @apply flex;
     @apply overflow-x-visible;
     @apply space-x-f-32;
+    @apply mx-f-40;
     will-change: transform;
     cursor: grab;
 
@@ -424,14 +424,6 @@ import SlideRevealText from 'components/SlideRevealText.vue'
       @apply gap-f-28;
       @apply md:gap-0;
 
-      &:first-of-type {
-        @apply ml-f-40;
-      }
-
-      &:last-of-type {
-        @apply mr-f-44;
-      }
-
       img {
         @apply w-[70vw];
         @apply h-full;
@@ -443,6 +435,7 @@ import SlideRevealText from 'components/SlideRevealText.vue'
         @apply row-span-full;
         @apply col-span-full;
         @apply md:col-start-1;
+        @apply md:col-end-2;
         @apply self-center;
       }
 
