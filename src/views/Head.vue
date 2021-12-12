@@ -144,7 +144,7 @@ import SlideRevealText from 'components/SlideRevealText.vue'
       <div
         data-scroll
         data-scroll-speed="2.6"
-        class="wrapper mt-[-18vw] md:-mt-f-48 zoom-in"
+        class="wrapper mt-[-18vw] md:-mt-f-40 lg:-mt-f-48 zoom-in"
       >
         <a
           class="
@@ -195,7 +195,12 @@ import SlideRevealText from 'components/SlideRevealText.vue'
           data-butter-plip-options="dragSpeed:2,smoothAmount:0.1"
         >
           <div class="slide" v-for="i in 4" :key="i">
-            <img src="../assets/alisa-childers.jpg" />
+            <div
+              class="
+                bg-[url('/src/assets/alisa-childers.jpg')] bg-cover bg-center
+                mr-f-5
+              "
+            />
             <h3>Alisa Childers</h3>
             <h4>Another Gospel?</h4>
             <p>
@@ -342,7 +347,7 @@ import SlideRevealText from 'components/SlideRevealText.vue'
       <div
         data-scroll
         data-scroll-speed="2.6"
-        class="wrapper mt-[-18vw] md:-mt-f-48 zoom-in"
+        class="wrapper mt-[-18vw] md:-mt-f-48 lg:-mt-f-56 zoom-in"
       >
         <a
           class="
@@ -399,13 +404,15 @@ import SlideRevealText from 'components/SlideRevealText.vue'
 .slider {
   @apply w-screen;
   @apply overflow-x-hidden;
+  @apply my-f-14;
+  @apply md:my-f-0;
 
   .slides {
     @apply flex;
     @apply overflow-x-visible;
     @apply space-x-f-32;
-    @apply mx-f-40;
-    will-change: transform;
+    @apply mx-f-14;
+    @apply md:mx-f-40;
     cursor: grab;
 
     &.active {
@@ -415,33 +422,40 @@ import SlideRevealText from 'components/SlideRevealText.vue'
     .slide {
       @apply border;
       @apply border-white;
-      @apply py-f-14;
-      @apply pr-f-16;
+      @apply px-f-20;
+      @apply md:py-f-14;
+      @apply md:pr-f-16;
       @apply select-none;
       @apply grid;
-      @apply grid-rows-[repeat(3,max-content)];
-      @apply grid-cols-[max-content,auto];
-      @apply gap-f-28;
+      @apply grid-rows-[repeat(4,max-content)];
+      @apply grid-cols-[auto];
+      @apply md:grid-rows-[repeat(3,max-content)];
+      @apply md:grid-cols-[max-content,auto];
       @apply md:gap-0;
 
-      img {
-        @apply w-[70vw];
-        @apply h-full;
+      div {
+        @apply w-[85vw];
+        @apply h-[50vw];
         @apply md:w-f-80;
         @apply md:h-[110%];
-        @apply -ml-f-24;
-        @apply object-cover;
+        @apply bg-cover;
+        @apply bg-center;
+        @apply mb-f-16;
+        @apply md:mb-0;
         @apply md:-ml-f-5;
-        @apply row-span-full;
-        @apply col-span-full;
+        @apply row-start-1;
+        @apply md:row-span-full;
+        @apply col-span-1;
         @apply md:col-start-1;
         @apply md:col-end-2;
         @apply self-center;
       }
 
       h3 {
-        @apply col-start-2;
-        @apply row-start-1;
+        @apply col-start-1;
+        @apply row-start-2;
+        @apply md:col-start-2;
+        @apply md:row-start-1;
         @apply text-[10vw];
         @apply leading-none;
         @apply mb-f-16;
@@ -450,19 +464,25 @@ import SlideRevealText from 'components/SlideRevealText.vue'
       }
 
       h4 {
-        @apply col-start-2;
-        @apply row-start-2;
+        @apply col-start-1;
+        @apply row-start-3;
+        @apply md:col-start-2;
+        @apply md:row-start-2;
         @apply font-semibold;
         @apply mb-f-36;
-        @apply text-[5vw];
+        @apply text-f-9xl;
         @apply leading-none;
         @apply md:mb-f-12;
         @apply md:text-f-3xl;
       }
 
       p {
-        @apply col-start-2;
-        @apply row-start-3;
+        @apply col-start-1;
+        @apply row-start-4;
+        @apply md:col-start-2;
+        @apply md:row-start-3;
+        @apply mb-f-20;
+        @apply md:mb-0;
         @apply text-f-8xl;
         @apply leading-snug;
         @apply md:text-f-xl;

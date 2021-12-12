@@ -58,7 +58,6 @@ tryOnMounted(async () => {
   const scroll = new LocomotiveScroll({
     el: scroller,
     smooth: true,
-    tablet: { smooth: true },
     reloadOnContextChange: true,
   })
 
@@ -196,7 +195,7 @@ tryOnMounted(async () => {
 </script>
 
 <template>
-  <div data-scroll-container class="bg-purple-500">
+  <div data-scroll-container class="relative bg-purple-500">
     <hero id="home" />
     <div
       class="
@@ -204,11 +203,13 @@ tryOnMounted(async () => {
         opacity-20
         h-[70vw]
         w-[70vw]
-        absolute
+        fixed
+        bg-blend-multiply
         top-0
         rounded-[50%]
         blur-[64px]
-        z-[-2]
+        z-[-1]
+        lg:z-[-2]
       "
       id="bg-circle"
       data-scroll
@@ -223,7 +224,7 @@ tryOnMounted(async () => {
       class="absolute top-0 z-[-1]"
     >
       <Renderer ref="renderer" alpha antialias resize="window">
-        <Camera ref="camera" :position="{z: 90}" :fov="30" />
+        <Camera ref="camera" :position="{ z: 90 }" :fov="30" />
         <Scene ref="scene">
           <ambient-light color="#ffffff" />
           <point-light
