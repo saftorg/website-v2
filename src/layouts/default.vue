@@ -19,7 +19,7 @@ const openMenu = () => {
   const onComplete = () => {
     isMenuAnimating.value = false
   }
-  isMobile.value
+  const tl = isMobile.value
     ? gsap
         .timeline()
         .set(overlayPath.value!, {
@@ -34,7 +34,7 @@ const openMenu = () => {
           duration: 0.3,
           ease: 'power2',
           attr: { d: 'M 0 0 V 100 Q 50 100 100 100 V 0 z' },
-          onComplete,
+          //onComplete,
         })
         .to(
           menuLinks.value!.querySelectorAll('.menu-link'),
@@ -56,7 +56,7 @@ const openMenu = () => {
           duration: 0.8,
           ease: 'power4.out',
           attr: { d: 'M 0 0 V 50 Q 50 70 100 50 V 0 z' },
-          onComplete,
+          //onComplete,
         })
         .to(
           menuLinks.value!.querySelectorAll('.menu-link'),
@@ -69,6 +69,17 @@ const openMenu = () => {
           },
           0.2
         )
+  tl.to(
+    '#menu-1',
+    { y: '0.6vh', rotate: -45, ease: 'power2.out', duration: 0.2 },
+    0
+  )
+    .to(
+      '#menu-2',
+      { y: '-0.6vh', rotate: 45, ease: 'power2.out', duration: 0.2 },
+      0
+    )
+    .eventCallback('onComplete', onComplete)
 }
 
 const closeMenu = () => {
@@ -108,17 +119,19 @@ const closeMenu = () => {
           attr: { d: 'M 0 0 V 0 Q 50 0 100 0 V 0 z' },
           onComplete,
         })
-  tl.to(
-    menuLinks.value!.querySelectorAll('.menu-link'),
-    {
-      duration: 0.3,
-      ease: 'power3.out',
-      y: '-100%',
-      rotate: -3,
-      stagger: { each: 0.05, from: 'end' },
-    },
-    0
-  )
+  tl.to('#menu-1', { y: 0, rotate: 0, ease: 'power2.out', duration: 0.2 }, 0)
+    .to('#menu-2', { y: 0, rotate: 0, ease: 'power2.out', duration: 0.2 }, 0)
+    .to(
+      menuLinks.value!.querySelectorAll('.menu-link'),
+      {
+        duration: 0.3,
+        ease: 'power3.out',
+        y: '-100%',
+        rotate: -3,
+        stagger: { each: 0.05, from: 'end' },
+      },
+      0
+    )
 }
 
 tryOnMounted(() => {
@@ -176,12 +189,12 @@ tryOnMounted(() => {
       >
         <div class="ml-auto md:mb-0 w-fit mb-0.5vh">
           <div
-            class="h-px bg-current transition origin-center w-10vw md:w-2vw"
-            :class="{ 'translate-y-0.6vh -rotate-45': isMenuOpen }"
+            id="menu-1"
+            class="h-px bg-current origin-center w-10vw md:w-2vw"
           ></div>
           <div
-            class="h-px bg-current transition origin-center mt-1.2vh w-10vw md:mt-1vh md:w-2vw"
-            :class="{ '-translate-y-0.6vh rotate-45': isMenuOpen }"
+            id="menu-2"
+            class="h-px bg-current origin-center mt-1.2vh w-10vw md:mt-1vh md:w-2vw"
           ></div>
         </div>
       </button>
