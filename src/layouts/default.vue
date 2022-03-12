@@ -16,7 +16,10 @@ const openMenu = () => {
   isMenuOpen.value = true
   isDark.value = false
   isMenuAnimating.value = true
-  const tl = isMobile.value
+  const onComplete = () => {
+    isMenuAnimating.value = false
+  }
+  isMobile.value
     ? gsap
         .timeline()
         .set(overlayPath.value!, {
@@ -31,6 +34,7 @@ const openMenu = () => {
           duration: 0.3,
           ease: 'power2',
           attr: { d: 'M 0 0 V 100 Q 50 100 100 100 V 0 z' },
+          onComplete,
         })
         .to(
           menuLinks.value!.querySelectorAll('.menu-link'),
@@ -52,6 +56,7 @@ const openMenu = () => {
           duration: 0.8,
           ease: 'power4.out',
           attr: { d: 'M 0 0 V 50 Q 50 70 100 50 V 0 z' },
+          onComplete,
         })
         .to(
           menuLinks.value!.querySelectorAll('.menu-link'),
@@ -64,16 +69,17 @@ const openMenu = () => {
           },
           0.2
         )
-
-  tl.eventCallback('onComplete', () => {
-    isMenuAnimating.value = false
-  })
 }
 
 const closeMenu = () => {
   if (isMenuAnimating.value) return
 
   isMenuAnimating.value = true
+  const onComplete = () => {
+    isDark.value = true
+    isMenuAnimating.value = false
+    isMenuOpen.value = false
+  }
   const tl = isMobile.value
     ? gsap
         .timeline()
@@ -89,6 +95,7 @@ const closeMenu = () => {
           duration: 0.2,
           ease: 'power2',
           attr: { d: 'M 0 0 V 0 Q 50 0 100 0 V 0 z' },
+          onComplete,
         })
     : gsap
         .timeline()
@@ -99,6 +106,7 @@ const closeMenu = () => {
           duration: 0.3,
           ease: 'power2.in',
           attr: { d: 'M 0 0 V 0 Q 50 0 100 0 V 0 z' },
+          onComplete,
         })
   tl.to(
     menuLinks.value!.querySelectorAll('.menu-link'),
@@ -107,14 +115,10 @@ const closeMenu = () => {
       ease: 'power3.out',
       y: '-100%',
       rotate: -3,
-      stagger: 0.05,
+      stagger: { each: 0.05, from: 'end' },
     },
     0
-  ).eventCallback('onComplete', () => {
-    isMenuAnimating.value = false
-    isMenuOpen.value = false
-    isDark.value = true
-  })
+  )
 }
 
 tryOnMounted(() => {
@@ -172,11 +176,11 @@ tryOnMounted(() => {
       >
         <div class="ml-auto md:mb-0 w-fit mb-0.5vh">
           <div
-            class="h-px bg-current transition duration-300 origin-center w-10vw md:w-2vw"
+            class="h-px bg-current transition origin-center w-10vw md:w-2vw"
             :class="{ 'translate-y-0.6vh -rotate-45': isMenuOpen }"
           ></div>
           <div
-            class="h-px bg-current transition duration-300 origin-center mt-1.2vh w-10vw md:mt-1vh md:w-2vw"
+            class="h-px bg-current transition origin-center mt-1.2vh w-10vw md:mt-1vh md:w-2vw"
             :class="{ '-translate-y-0.6vh rotate-45': isMenuOpen }"
           ></div>
         </div>
@@ -188,7 +192,7 @@ tryOnMounted(() => {
       class="fixed my-auto w-full pointer-events-none md:px-0 md:my-0 px-3vw h-80vh z-51 translate-y-22vh md:h-fit"
       :class="{ 'text-white': isDark, 'text-#01124F': !isDark }"
     >
-      <div class="flex-col md:flex-row flex mx-auto w-fit md:space-x-7vw">
+      <div class="flex flex-col mx-auto md:flex-row w-fit md:space-x-7vw">
         <div
           class="overflow-hidden"
           v-for="link in ['Home', 'About', 'Podcast', 'Areopagus']"
