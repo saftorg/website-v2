@@ -4,6 +4,8 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
+    3DBall: typeof import('./components/3DBall.vue')['default']
+    BlurryCircle: typeof import('./components/BlurryCircle.vue')['default']
     Counter: typeof import('./components/Counter.vue')['default']
     Footer: typeof import('./components/Footer.vue')['default']
     README: typeof import('./components/README.md')['default']

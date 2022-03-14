@@ -1,4 +1,6 @@
 @import './markdown.css';
+@import '../assets/joyride-vf.css';
+@import '../assets/joyride/stylesheet.css';
 
 html,
 body,
@@ -6,7 +8,12 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
-  background: #0F6CAF;
+}
+
+h1 {
+  @apply text-20vw md:text-5vw;
+  @apply uppercase;
+  font-family: 'Joyride STD Outline';
 }
 
 #nprogress {
@@ -14,7 +21,7 @@ body,
 }
 
 #nprogress .bar {
-  background: rgb(13,148,136);
+  background: rgb(13, 148, 136);
   opacity: 0.75;
   position: fixed;
   z-index: 1031;

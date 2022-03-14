@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'Joyride VF';
+    src: url('Joyride-VF.woff2') format('woff-variations'),
+        url('Joyride-VF.ttf') format('ttf-variations');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}

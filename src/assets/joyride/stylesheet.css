@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'Joyride STD';
+    src: url('JoyrideSTD.woff2') format('woff2'),
+        url('JoyrideSTD.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Joyride STD Outline';
+    src: url('JoyrideSTDOutline.woff2') format('woff2'),
+        url('JoyrideSTDOutline.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Joyride STD';
+    src: url('JoyrideSTDItalic.woff2') format('woff2'),
+        url('JoyrideSTDItalic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Joyride STD Outline';
+    src: url('JoyrideSTDOutlineItalic.woff2') format('woff2'),
+        url('JoyrideSTDOutlineItalic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+

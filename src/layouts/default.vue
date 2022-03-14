@@ -34,7 +34,6 @@ const openMenu = () => {
           duration: 0.3,
           ease: 'power2',
           attr: { d: 'M 0 0 V 100 Q 50 100 100 100 V 0 z' },
-          //onComplete,
         })
         .to(
           menuLinks.value!.querySelectorAll('.menu-link'),
@@ -56,7 +55,6 @@ const openMenu = () => {
           duration: 0.8,
           ease: 'power4.out',
           attr: { d: 'M 0 0 V 50 Q 50 70 100 50 V 0 z' },
-          //onComplete,
         })
         .to(
           menuLinks.value!.querySelectorAll('.menu-link'),
@@ -200,7 +198,7 @@ tryOnMounted(() => {
       </button>
     </div>
 
-    <div
+    <nav
       ref="menuLinks"
       class="fixed my-auto w-full pointer-events-none md:px-0 md:my-0 px-3vw h-80vh z-51 translate-y-22vh md:h-fit"
       :class="{ 'text-white': isDark, 'text-#01124F': !isDark }"
@@ -211,15 +209,15 @@ tryOnMounted(() => {
           v-for="link in ['Home', 'About', 'Podcast', 'Areopagus']"
           key="link"
         >
-          <h1 class="menu-link">
+          <a class="menu-link">
             {{ link }}
             <span></span>
-          </h1>
+          </a>
         </div>
       </div>
-    </div>
+    </nav>
 
-    <div class="md:px-0 pt-30vh px-5vw">
+    <div class="overflow-x-hidden w-screen relative left-0">
       <router-view />
     </div>
 
@@ -239,11 +237,13 @@ tryOnMounted(() => {
 
 <style lang="scss" scoped>
 .menu-link {
+  @apply block;
   @apply relative;
   transform: translate3d(0, -100%, 0) rotate(-3deg);
   @apply text-15vw;
   @apply md:text-4vw;
-  @apply pointer-events-auto cursor-pointer;
+  @apply pointer-events-auto;
+  @apply cursor-pointer;
 
   span {
     @apply absolute;
