@@ -12,73 +12,8 @@ tryOnMounted(() => {
 </script>
 
 <template>
-  <div class="fixed -z-1">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      version="1.1"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
-      xmlns:svgjs="http://svgjs.dev/svgjs"
-      width="100vw"
-      height="100vh"
-    >
-      <defs>
-        <filter
-          id="nnnoise-filter"
-          x="-20%"
-          y="-20%"
-          width="140%"
-          height="140%"
-          filterUnits="objectBoundingBox"
-          primitiveUnits="userSpaceOnUse"
-          color-interpolation-filters="linearRGB"
-        >
-          <feTurbulence
-            type="fractalNoise"
-            baseFrequency="0.102"
-            numOctaves="4"
-            seed="15"
-            stitchTiles="stitch"
-            x="0%"
-            y="0%"
-            width="100%"
-            height="100%"
-            result="turbulence"
-          ></feTurbulence>
-          <feSpecularLighting
-            surfaceScale="15"
-            specularConstant="0.75"
-            specularExponent="20"
-            lighting-color="hsl(22.5, 100%, 33%)"
-            x="0%"
-            y="0%"
-            width="100%"
-            height="100%"
-            in="turbulence"
-            result="specularLighting"
-          >
-            <feDistantLight azimuth="3" elevation="100"></feDistantLight>
-          </feSpecularLighting>
-          <feColorMatrix
-            type="saturate"
-            values="0"
-            x="0%"
-            y="0%"
-            width="100%"
-            height="100%"
-            in="specularLighting"
-            result="colormatrix"
-          ></feColorMatrix>
-        </filter>
-      </defs>
-      <rect width="100vw" height="100vh" fill="#0f6caf"></rect>
-      <rect
-        class=""
-        width="100vw"
-        height="100vh"
-        fill="hsl(22.5, 100%, 33%)"
-        filter="url(#nnnoise-filter)"
-      ></rect>
-    </svg>
+  <div class="fixed -z-1 w-screen h-screen top-0 left-0 bg-#0F6CAF">
+    <div id="noise"></div>
   </div>
   <header class="grid relative w-screen h-screen isolate">
     <blurry-circle
@@ -153,6 +88,13 @@ tryOnMounted(() => {
 #tag-line {
   @apply text-8vw md:(text-3.5vw w-80vw) leading-9 md:leading-none mx-auto;
   font-family: 'Joyride VF';
+}
+
+#noise {
+  background: url('~/assets/noise.svg') repeat;
+  @apply w-full;
+  @apply h-full;
+  @apply mix-blend-multiply;
 }
 </style>
 
