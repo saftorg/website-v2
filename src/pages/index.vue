@@ -1,86 +1,122 @@
 <script setup lang="ts">
 import gsap from 'gsap'
+import ScrollTrigger from 'gsap/dist/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
+const bgRef = ref<HTMLElement>()
+const loading = ref<HTMLElement>()
+const tagLine = ref(100)
+
+const loadIn = () => {
+  gsap
+    .timeline()
+    .to(loading.value!, {
+      strokeDashoffset: 0,
+      duration: 2,
+      ease: 'power4.out',
+      autoRound: false,
+    })
+    .to(loading.value!, {
+      strokeWidth: 0,
+      duration: 0.8,
+      ease: 'power4.out',
+      autoRound: false,
+    })
+    .to(
+      '.header-blob',
+      {
+        opacity: 1,
+        filter: 'blur(0px)',
+        duration: 4,
+        ease: 'power2.out',
+      },
+      2.5
+    )
+    .to(
+      '#tag-line span',
+      {
+        fontStretch: '115%',
+        stagger: 0.6,
+        duration: 2,
+        ease: 'power4.inOut',
+      },
+      3
+    )
+}
 
 tryOnMounted(() => {
-  gsap.to('#tag-line span', {
-    fontStretch: '115%',
-    stagger: 0.6,
-    duration: 2,
-    ease: 'power4.inOut',
-  })
+  loadIn()
 })
 </script>
 
 <template>
-  <div class="fixed -z-1 w-screen h-screen top-0 left-0 bg-#0F6CAF">
+  <div ref="bgRef" class="fixed -z-1 w-screen h-screen top-0 left-0 bg-#0F6CAF">
     <div id="noise"></div>
   </div>
-  <header class="grid relative w-screen h-screen isolate">
-    <blurry-circle
-      fill="#9A1FCD"
-      class="absolute opacity-90 scale-120 -z-1 -top-20vw -left-10vw"
+
+  <svg
+    class="fixed w-full h-full pointer-events-none stroke-1 z-49 fill-none stroke-white"
+    width="100%"
+    height="100%"
+    viewBox="0 0 100 100"
+    preserveAspectRatio="none"
+  >
+    <path
+      ref="loading"
+      class="[stroke-dasharray:1] [stroke-dashoffset:1]"
+      pathLength="1"
+      d="M 0 0 H 100 V 100 H 0 Z"
     />
-    <div class="absolute -z-1 top-40vh left-60vw scale-200">
-      <blurry-circle
-        fill="#59B4E8"
-        class="opacity-90 scale-120"
-      />
-    </div>
-    <h1 id="tag-line" class="place-self-center">
+  </svg>
+
+  <header class="grid relative w-screen h-screen isolate">
+    <img
+      src="../assets/medium-purple.png"
+      class="header-blob absolute -top-50vh -z-1 -left-30vw w-90% opacity-0 blur-2xl"
+    />
+    <img
+      src="../assets/light-blue.png"
+      class="header-blob absolute -z-1 top-40vh left-50vw w-90% opacity-0 blur-2xl"
+    />
+    <h1
+      data-rellax
+      data-rellax-speed="1.6"
+      id="tag-line"
+      class="place-self-center"
+    >
       Equipping the <span>believer</span> to <span>defend</span> their
       <span>faith</span><br />
-      <span>anytime, anywhere</span>.
+      <span :style="{fontStretch: `${tagLine}%`}">anytime, anywhere</span>.
     </h1>
 
-    <div class="absolute">
-      <svg
-        class="scale-50"
-        xmlns="http://www.w3.org/2000/svg"
-        version="1.1"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-        xmlns:svgjs="http://svgjs.dev/svgjs"
-        viewBox="0 0 800 800"
-      >
-        <defs>
-          <radialGradient id="sssurface-grad-dark" r="86%" cx="20%" cy="20%">
-            <stop
-              offset="0%"
-              stop-color="hsla(220, 79%, 86%, 1)"
-              stop-opacity="0"
-            ></stop>
-            <stop offset="100%" stop-color="#334767" stop-opacity="1"></stop>
-          </radialGradient>
-          <radialGradient id="sssurface-grad-light" r="49%" cx="30%" cy="30%">
-            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.75"></stop>
-            <stop
-              offset="100%"
-              stop-color="hsla(220, 79%, 86%, 1)"
-              stop-opacity="0"
-            ></stop>
-          </radialGradient>
-        </defs>
-        <g>
-          <circle
-            r="150"
-            cx="400"
-            cy="400"
-            fill="hsla(220, 79%, 86%, 1)"
-          ></circle>
-          <circle
-            r="150"
-            cx="400"
-            cy="400"
-            fill="url(#sssurface-grad-dark)"
-          ></circle>
-          <circle
-            r="150"
-            cx="400"
-            cy="400"
-            fill="url(#sssurface-grad-light)"
-          ></circle>
-        </g>
-      </svg>
-    </div>
+    <input
+      type="range"
+      min="100"
+      max="115"
+      @input="event => tagLine = event.target!.value"
+    />
+
+    <img
+      src="../assets/3d-circle.svg"
+      alt="3d-circle"
+      class="absolute 3d-circle -bottom-5vh left-10vw w-17vw"
+    />
+    <img
+      src="../assets/3d-circle.svg"
+      alt="3d-circle"
+      class="absolute 3d-circle w-6vw bottom-26vh left-20vw"
+    />
+    <img
+      src="../assets/3d-circle.svg"
+      alt="3d-circle"
+      class="absolute 3d-circle top-30vh -right-5vw w-17vw -rotate-130"
+    />
+    <img
+      src="../assets/3d-circle.svg"
+      alt="3d-circle"
+      class="absolute 3d-circle w-6vw top-55vh right-10vw -rotate-135"
+    />
   </header>
 </template>
 
@@ -97,8 +133,3 @@ tryOnMounted(() => {
   @apply mix-blend-multiply;
 }
 </style>
-
-<route lang="yaml">
-meta:
-  layout: default
-</route>

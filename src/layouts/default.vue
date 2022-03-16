@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { breakpointsTailwind } from '@vueuse/core'
-import Rellax from 'rellax'
 import gsap from 'gsap'
 
 const isMobile = useBreakpoints(breakpointsTailwind).smaller('md')
@@ -133,7 +132,6 @@ const closeMenu = () => {
 }
 
 tryOnMounted(() => {
-  new Rellax('[data-rellax]')
 })
 </script>
 
@@ -217,7 +215,7 @@ tryOnMounted(() => {
       </div>
     </nav>
 
-    <div class="overflow-x-hidden w-screen relative left-0">
+    <div class="relative top-0 left-0 overflow-x-hidden w-screen">
       <router-view />
     </div>
 
