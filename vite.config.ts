@@ -22,6 +22,9 @@ export default defineConfig({
       '~/': `${path.resolve(__dirname, 'src')}/`,
     },
   },
+
+  build: { assetsInlineLimit: 0 },
+
   plugins: [
     Vue({
       include: [/\.vue$/, /\.md$/],

@@ -28,7 +28,7 @@ const loadIn = () => {
         filter: 'blur(0px)',
         duration: 4,
         ease: 'power2.out',
-      },
+      } ,
       2.5
     )
     .to(
