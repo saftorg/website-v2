@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import gsap from 'gsap'
-import ScrollTrigger from 'gsap/dist/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
+import ScrollTrigger from 'gsap/dist/ScrollTrigger.js'
 
 const bgRef = ref<HTMLElement>()
 const loading = ref<HTMLElement>()
@@ -46,6 +44,8 @@ const loadIn = () => {
 }
 
 tryOnMounted(() => {
+  gsap.registerPlugin(ScrollTrigger)
+
   loadIn()
 })
 </script>
@@ -87,7 +87,7 @@ tryOnMounted(() => {
     >
       Equipping the <span>believer</span> to <span>defend</span> their
       <span>faith</span><br />
-      <span :style="{fontStretch: `${tagLine}%`}">anytime, anywhere</span>.
+      <span :style="{ fontStretch: `${tagLine}%` }">anytime, anywhere</span>.
     </h1>
 
     <input
