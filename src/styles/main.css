@@ -11,6 +11,7 @@ body,
 }
 
 h1 {
+  @apply text-white;
   @apply text-20vw md:text-5vw;
   @apply uppercase;
   font-family: 'Joyride STD Outline';
