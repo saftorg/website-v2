@@ -4,7 +4,6 @@ import ScrollTrigger from 'gsap/dist/ScrollTrigger.js'
 
 const bgRef = ref<HTMLElement>()
 const loading = ref<HTMLElement>()
-const tagLine = ref(100)
 
 const loadIn = () => {
   gsap
@@ -25,16 +24,15 @@ const loadIn = () => {
       '.header-blob',
       {
         opacity: 1,
-        filter: 'blur(0px)',
         duration: 4,
         ease: 'power2.out',
-      } ,
+      },
       2.5
     )
     .to(
       '#tag-line span',
       {
-        fontStretch: '115%',
+        className: 'stretch',
         stagger: 0.6,
         duration: 2,
         ease: 'power4.inOut',
@@ -87,15 +85,8 @@ tryOnMounted(() => {
     >
       Equipping the <span>believer</span> to <span>defend</span> their
       <span>faith</span><br />
-      <span :style="{ fontStretch: `${tagLine}%` }">anytime, anywhere</span>.
+      <span>anytime, anywhere</span>.
     </h1>
-
-    <input
-      type="range"
-      min="100"
-      max="115"
-      @input="event => tagLine = event.target!.value"
-    />
 
     <img
       src="../assets/3d-circle.svg"
@@ -124,6 +115,17 @@ tryOnMounted(() => {
 #tag-line {
   @apply text-8vw md:(text-3.5vw w-80vw) leading-9 md:leading-none mx-auto;
   font-family: 'Joyride VF';
+
+  span {
+    @apply transition-all;
+    transition-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+    @apply duration-1000;
+    font-variation-settings: 'wdth' 100;
+
+    &.stretch {
+      font-variation-settings: 'wdth' 115;
+    }
+  }
 }
 
 #noise {
