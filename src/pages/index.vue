@@ -4,6 +4,7 @@ import ScrollTrigger from 'gsap/dist/ScrollTrigger.js'
 
 const bgRef = ref<HTMLElement>()
 const loading = ref<HTMLElement>()
+const circleGroup = ref<HTMLElement>()
 
 const loadIn = () => {
   gsap
@@ -29,6 +30,20 @@ const loadIn = () => {
       },
       2.5
     )
+    .fromTo(
+      circleGroup.value!,
+      { scale: 2, opacity: 0 },
+      {
+        scale: 1,
+        opacity: 1,
+        duration: 2,
+        ease: 'expo.out',
+        onComplete() {
+          circleGroup.value!.classList.add('animate-spin-long')
+        }
+      },
+      2.5
+    )
     .to(
       '#tag-line span',
       {
@@ -37,7 +52,7 @@ const loadIn = () => {
         duration: 2,
         ease: 'power4.inOut',
       },
-      3
+      4
     )
 }
 
@@ -68,14 +83,14 @@ tryOnMounted(() => {
     />
   </svg>
 
-  <header class="grid relative w-screen h-screen isolate">
+  <header class="grid relative w-screen h-screen pointer-events-none isolate">
     <img
       src="../assets/medium-purple.png"
-      class="header-blob absolute -top-50vh -z-1 -left-30vw w-90% opacity-0 blur-2xl"
+      class="header-blob absolute -top-30vh -left-40vw md:-top-50vh -z-1 md:-left-30vw w-150% md:w-90% opacity-0"
     />
     <img
       src="../assets/light-blue.png"
-      class="header-blob absolute -z-1 top-40vh left-50vw w-90% opacity-0 blur-2xl"
+      class="header-blob absolute -z-1 top-40vh left-50vw w-150% md:w-90% opacity-0"
     />
     <h1
       data-rellax
@@ -88,26 +103,31 @@ tryOnMounted(() => {
       <span>anytime, anywhere</span>.
     </h1>
 
-    <img
-      src="../assets/3d-circle.svg"
-      alt="3d-circle"
-      class="absolute 3d-circle -bottom-5vh left-10vw w-17vw"
-    />
-    <img
-      src="../assets/3d-circle.svg"
-      alt="3d-circle"
-      class="absolute 3d-circle w-6vw bottom-26vh left-20vw"
-    />
-    <img
-      src="../assets/3d-circle.svg"
-      alt="3d-circle"
-      class="absolute 3d-circle top-30vh -right-5vw w-17vw -rotate-130"
-    />
-    <img
-      src="../assets/3d-circle.svg"
-      alt="3d-circle"
-      class="absolute 3d-circle w-6vw top-55vh right-10vw -rotate-135"
-    />
+    <div
+      ref="circleGroup"
+      class="grid absolute grid-cols-6 grid-rows-6 w-screen h-screen pointer-events-none"
+    >
+      <img
+        src="../assets/3d-circle.svg"
+        alt="3d-circle"
+        class="relative col-start-2 row-start-6 threed-circle w-17vw"
+      />
+      <img
+        src="../assets/3d-circle.svg"
+        alt="3d-circle"
+        class="relative col-start-2 row-start-5 place-self-end threed-circle w-6vw"
+      />
+      <img
+        src="../assets/3d-circle.svg"
+        alt="3d-circle"
+        class="relative col-start-6 row-start-3 threed-circle w-17vw -rotate-130"
+      />
+      <img
+        src="../assets/3d-circle.svg"
+        alt="3d-circle"
+        class="relative col-start-5 row-start-3 justify-self-end self-start threed-circle w-6vw -rotate-135"
+      />
+    </div>
   </header>
 </template>
 
@@ -133,5 +153,18 @@ tryOnMounted(() => {
   @apply w-full;
   @apply h-full;
   @apply mix-blend-multiply;
+}
+
+.animate-spin-long {
+  animation: spin 60s linear infinite;
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
 }
 </style>
