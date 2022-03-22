@@ -1,13 +1,19 @@
 <script setup lang="ts">
 import { breakpointsTailwind } from '@vueuse/core'
+import { useMainStore } from '~/stores/main'
 import gsap from 'gsap'
+
+const mainStore = useMainStore()
 
 const isMobile = useBreakpoints(breakpointsTailwind).smaller('md')
 const isMenuAnimating = ref(false)
 const isDark = ref(true)
 const isMenuOpen = ref(false)
+
+const bodyRef = ref<HTMLElement>()
 const overlayPath = ref<HTMLElement>()
 const menuLinks = ref<HTMLElement>()
+const bgRef = ref<HTMLElement>()
 
 const openMenu = () => {
   if (isMenuAnimating.value) return
@@ -66,6 +72,17 @@ const openMenu = () => {
           },
           0.2
         )
+        .fromTo(
+          bodyRef.value!,
+          {
+            filter: 'blur(0px)',
+          },
+          {
+            filter: 'blur(20px)',
+            duration: 1,
+          },
+          0
+        )
   tl.to(
     '#menu-1',
     { y: '0.6vh', rotate: -45, ease: 'power2.out', duration: 0.2 },
@@ -78,6 +95,8 @@ const openMenu = () => {
     )
     .eventCallback('onComplete', onComplete)
 }
+
+const suspendMenu = () => {}
 
 const closeMenu = () => {
   if (isMenuAnimating.value) return
@@ -116,6 +135,13 @@ const closeMenu = () => {
           attr: { d: 'M 0 0 V 0 Q 50 0 100 0 V 0 z' },
           onComplete,
         })
+        .to(
+          bodyRef.value!,
+          {
+            filter: 'blur(0px)',
+          },
+          0
+        )
   tl.to('#menu-1', { y: 0, rotate: 0, ease: 'power2.out', duration: 0.2 }, 0)
     .to('#menu-2', { y: 0, rotate: 0, ease: 'power2.out', duration: 0.2 }, 0)
     .to(
@@ -132,6 +158,7 @@ const closeMenu = () => {
 }
 
 tryOnMounted(() => {
+  document.querySelector('body')!.style.backgroundColor = mainStore.bgColor
 })
 </script>
 
@@ -152,8 +179,12 @@ tryOnMounted(() => {
     </svg>
 
     <div
-      class="grid fixed z-50 grid-cols-12 items-center mx-auto w-screen transition mt-2vh"
-      :class="{ 'text-white': isDark, 'text-#01124F': !isDark }"
+      class="grid fixed z-50 grid-cols-12 items-center mx-auto w-screen transition duration-300 mt-2vh"
+      :class="{
+        'text-white': isDark,
+        'text-#01124F': !isDark,
+        '-translate-y-7vh': !mainStore.isMenuVisible,
+      }"
     >
       <svg
         class="hidden col-span-full row-start-1 mx-auto fill-current md:block w-12vw"
@@ -215,7 +246,15 @@ tryOnMounted(() => {
       </div>
     </nav>
 
-    <div class="relative top-0 left-0 overflow-x-hidden w-screen">
+    <div
+      ref="bgRef"
+      class="fixed -z-1 w-screen h-screen top-0 left-0 bg-#0F6CAF pointer-events-none transition duration-500"
+      :style="{ backgroundColor: mainStore.bgColor }"
+    >
+      <div id="noise"></div>
+    </div>
+
+    <div ref="bodyRef" class="overflow-x-hidden relative top-0 left-0 w-screen">
       <router-view />
     </div>
 

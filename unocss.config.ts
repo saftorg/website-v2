@@ -31,7 +31,7 @@ export default defineConfig({
     presetTypography(),
     presetWebFonts({
       fonts: {
-        sans: 'Manrope',
+        sans: 'Manrope:300,400,700',
         serif: 'Libre Baskerville',
       },
     }),

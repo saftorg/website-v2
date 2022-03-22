@@ -1,19 +1,35 @@
 <script setup lang="ts">
+import { Ref } from 'vue'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger.js'
+import { useMainStore } from '~/stores/main'
+import SplitType from 'split-type'
 
-const bgRef = ref<HTMLElement>()
+const mainStore = useMainStore()
+
+const isHeaderAnimationComplete = ref(false)
+
 const loading = ref<HTMLElement>()
 const circleGroup = ref<HTMLElement>()
+const headerSection = ref<HTMLElement>()
+const descSection = ref<HTMLElement>()
+const mainDesc = ref<HTMLElement>()
 
 const loadIn = () => {
-  gsap
+  const onCompleteLoad = () => {
+    mainStore.isMenuVisible = true
+  }
+
+  document.querySelector('html')!.style.overflowY = 'hidden'
+
+  const tl = gsap
     .timeline()
     .to(loading.value!, {
       strokeDashoffset: 0,
       duration: 2,
       ease: 'power4.out',
       autoRound: false,
+      onComplete: onCompleteLoad,
     })
     .to(loading.value!, {
       strokeWidth: 0,
@@ -32,15 +48,16 @@ const loadIn = () => {
     )
     .fromTo(
       circleGroup.value!,
-      { scale: 2, opacity: 0 },
+      { scale: 2, rotate: -35, opacity: 0 },
       {
+        rotate: 0,
         scale: 1,
         opacity: 1,
         duration: 2,
         ease: 'expo.out',
         onComplete() {
           circleGroup.value!.classList.add('animate-spin-long')
-        }
+        },
       },
       2.5
     )
@@ -54,20 +71,57 @@ const loadIn = () => {
       },
       4
     )
+
+  tl.eventCallback('onComplete', () => {
+    document.querySelector('html')!.style.overflowY = 'auto'
+  })
 }
+
+const mainDescAnimation = () => {
+  const text = new SplitType(mainDesc.value!, { types: 'lines' })
+  text.lines!.forEach((line) => {
+    gsap.fromTo(
+      line,
+      { rotate: -3, y: '150%', opacity: 0 },
+      {
+        transformOrigin: 'bottom left',
+        rotate: 0,
+        y: 0,
+        opacity: 1,
+        scrollTrigger: { trigger: line, start: 'top center' },
+        duration: 0.5,
+        ease: 'expo.out',
+      }
+    )
+  })
+}
+
+const bgSections: {
+  backgroundColor: string
+  trigger: Ref<HTMLElement | undefined>
+}[] = [
+  {
+    backgroundColor: '#0F6CAF',
+    trigger: headerSection,
+  },
+  { backgroundColor: '#5B14CE', trigger: descSection },
+]
+
+bgSections.forEach(({ backgroundColor, trigger }) => {
+  useIntersectionObserver(trigger, ([{ isIntersecting }]) => {
+    if (isIntersecting) mainStore.bgColor = backgroundColor
+  })
+})
 
 tryOnMounted(() => {
   gsap.registerPlugin(ScrollTrigger)
 
   loadIn()
+  mainDescAnimation()
 })
 </script>
 
 <template>
-  <div ref="bgRef" class="fixed -z-1 w-screen h-screen top-0 left-0 bg-#0F6CAF">
-    <div id="noise"></div>
-  </div>
-
   <svg
     class="fixed w-full h-full pointer-events-none stroke-1 z-49 fill-none stroke-white"
     width="100%"
@@ -82,8 +136,10 @@ tryOnMounted(() => {
       d="M 0 0 H 100 V 100 H 0 Z"
     />
   </svg>
-
-  <header class="grid relative w-screen h-screen pointer-events-none isolate">
+  <header
+    ref="headerSection"
+    class="grid relative w-screen h-screen pointer-events-none isolate"
+  >
     <img
       src="../assets/medium-purple.png"
       class="header-blob absolute -top-30vh -left-40vw md:-top-50vh -z-1 md:-left-30vw w-150% md:w-90% opacity-0"
@@ -105,30 +161,44 @@ tryOnMounted(() => {
 
     <div
       ref="circleGroup"
-      class="grid absolute grid-cols-6 grid-rows-6 w-screen h-screen pointer-events-none"
+      class="grid absolute h-screen w-screen pointer-events-none aspect-square -z-1 md:(grid-cols-6 grid-rows-6 aspect-none)"
     >
       <img
         src="../assets/3d-circle.svg"
         alt="3d-circle"
-        class="relative col-start-2 row-start-6 threed-circle w-17vw"
+        class="col-start-2 row-start-6 threed-circle big"
       />
       <img
         src="../assets/3d-circle.svg"
         alt="3d-circle"
-        class="relative col-start-2 row-start-5 place-self-end threed-circle w-6vw"
+        class="col-start-2 row-start-5 place-self-end threed-circle small"
       />
       <img
         src="../assets/3d-circle.svg"
         alt="3d-circle"
-        class="relative col-start-6 row-start-3 threed-circle w-17vw -rotate-130"
+        class="col-start-6 row-start-3 threed-circle -rotate-130 big"
       />
       <img
         src="../assets/3d-circle.svg"
         alt="3d-circle"
-        class="relative col-start-5 row-start-3 justify-self-end self-start threed-circle w-6vw -rotate-135"
+        class="col-start-5 row-start-3 justify-self-end self-start threed-circle -rotate-135 small"
       />
     </div>
   </header>
+
+  <section ref="descSection" class="mt-10vh">
+    <p
+      ref="mainDesc"
+      class="text-white font-light text-left px-5vw text-9vw leading-relaxed md:(text-7vw leading-snug)"
+    >
+      Be it English or non-English, churches or youth gatherings, podcasts or
+      videos, closed settings or national conferences; at SAFT we venture into
+      diverse spaces proclaiming the Good News with intellectual vigour, grace
+      and meekness calling all unto the free gift of salvation.
+    </p>
+  </section>
+
+  <section class="min-h-screen"></section>
 </template>
 
 <style lang="scss" scoped>
@@ -138,13 +208,24 @@ tryOnMounted(() => {
 
   span {
     @apply transition-all;
-    transition-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+    transition-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
     @apply duration-1000;
     font-variation-settings: 'wdth' 100;
 
     &.stretch {
       font-variation-settings: 'wdth' 115;
     }
+  }
+}
+
+.threed-circle {
+  @apply relative;
+
+  &.big {
+    @apply w-32vw md:w-17vw;
+  }
+  &.small {
+    @apply w-12vw md:w-6vw;
   }
 }
 

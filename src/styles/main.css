@@ -10,6 +10,10 @@ body,
   padding: 0;
 }
 
+html {
+  @apply transition-color;
+}
+
 h1 {
   @apply text-white;
   @apply text-20vw md:text-5vw;
