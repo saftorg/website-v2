@@ -20,7 +20,9 @@ const loadIn = () => {
     mainStore.isMenuVisible = true
   }
 
-  document.querySelector('html')!.style.overflowY = 'hidden'
+  document
+    .querySelector('html')!
+    .classList.add('overflow-y-hidden', 'touch-none')
 
   const tl = gsap
     .timeline()
@@ -73,7 +75,9 @@ const loadIn = () => {
     )
 
   tl.eventCallback('onComplete', () => {
-    document.querySelector('html')!.style.overflowY = 'auto'
+    document
+      .querySelector('html')!
+      .classList.remove('overflow-y-hidden', 'touch-none')
   })
 }
 
