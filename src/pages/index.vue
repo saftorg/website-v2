@@ -3,17 +3,14 @@ import { Ref } from 'vue'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger.js'
 import { useMainStore } from '~/stores/main'
-import SplitType from 'split-type'
+import { useSplitText } from '~/composables/splitText'
 
 const mainStore = useMainStore()
-
-const isHeaderAnimationComplete = ref(false)
 
 const loading = ref<HTMLElement>()
 const circleGroup = ref<HTMLElement>()
 const headerSection = ref<HTMLElement>()
 const descSection = ref<HTMLElement>()
-const mainDesc = ref<HTMLElement>()
 
 const loadIn = () => {
   const onCompleteLoad = () => {
@@ -79,25 +76,8 @@ const loadIn = () => {
       .querySelector('html')!
       .classList.remove('overflow-y-hidden', 'touch-none')
   })
-}
 
-const mainDescAnimation = () => {
-  const text = new SplitType(mainDesc.value!, { types: 'lines' })
-  text.lines!.forEach((line) => {
-    gsap.fromTo(
-      line,
-      { rotate: -3, y: '150%', opacity: 0 },
-      {
-        transformOrigin: 'bottom left',
-        rotate: 0,
-        y: 0,
-        opacity: 1,
-        scrollTrigger: { trigger: line, start: 'top center' },
-        duration: 0.5,
-        ease: 'expo.out',
-      }
-    )
-  })
+  return
 }
 
 const bgSections: {
@@ -119,10 +99,38 @@ bgSections.forEach(({ backgroundColor, trigger }) => {
 
 tryOnMounted(() => {
   gsap.registerPlugin(ScrollTrigger)
-
   loadIn()
-  mainDescAnimation()
 })
+
+useSplitText(
+  '#main-desc',
+  (line: HTMLElement) =>
+    gsap.fromTo(
+      line,
+      { rotate: -3, y: '150%', opacity: 0 },
+      {
+        transformOrigin: 'bottom left',
+        rotate: 0,
+        y: 0,
+        opacity: 1,
+        scrollTrigger: {
+          trigger: line,
+          start: 'center bottom',
+          onEnter() {
+            line.querySelectorAll('.thicken').forEach((elem) => {
+              ;(elem as HTMLElement).style.fontVariationSettings = "'wght' 700"
+              ;(elem as HTMLElement).style.transition =
+                'font-variation-settings cubic-bezier(0.25, 1, 0.5, 1) 1s .5s'
+            })
+          },
+        },
+        duration: 0.5,
+        ease: 'expo.out',
+      }
+    ),
+  'lines words',
+  undefined
+)
 </script>
 
 <template>
@@ -192,18 +200,21 @@ tryOnMounted(() => {
 
   <section ref="descSection" class="mt-10vh">
     <p
-      ref="mainDesc"
-      class="text-white font-light text-left px-5vw text-9vw leading-relaxed md:(text-7vw leading-snug)"
+      id="main-desc"
+      class="font-light text-left px-5vw text-9vw leading-relaxed md:(text-7vw leading-snug)"
     >
       Be it English or non-English, churches or youth gatherings, podcasts or
-      videos, closed settings or national conferences; at SAFT we venture into
-      diverse spaces proclaiming the Good News with intellectual vigour, grace
-      and meekness calling all unto the free gift of salvation.
+      videos, closed settings or national conferences, at SAFT we venture into
+      diverse spaces proclaiming the <span class="thicken">Good News</span> with
+      intellectual vigour, grace and meekness calling all unto the free gift of
+      <span class="thicken">salvation.</span>
     </p>
   </section>
 
   <section class="min-h-screen"></section>
 </template>
+
+style
 
 <style lang="scss" scoped>
 #tag-line {
@@ -222,6 +233,22 @@ tryOnMounted(() => {
   }
 }
 
+#main-desc {
+  font-family: 'Manrope VF';
+  font-variation-settings: 'wght' 200;
+  div {
+    @apply transition-all;
+    transition-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+    @apply duration-1000;
+  }
+
+  .thicken {
+    &.active {
+      font-variation-settings: 'wght' 700;
+    }
+  }
+}
+
 .threed-circle {
   @apply relative;
 
@@ -231,13 +258,6 @@ tryOnMounted(() => {
   &.small {
     @apply w-12vw md:w-6vw;
   }
-}
-
-#noise {
-  background: url('~/assets/noise.svg') repeat;
-  @apply w-full;
-  @apply h-full;
-  @apply mix-blend-multiply;
 }
 
 .animate-spin-long {

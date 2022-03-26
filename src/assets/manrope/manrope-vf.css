@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'Manrope VF';
+    src: url('Manrope[wght].woff2') format('woff-variations'),
+        url('Manrope[wght].ttf') format('ttf-variations');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}

@@ -163,7 +163,7 @@ tryOnMounted(() => {
 </script>
 
 <template>
-  <main class="text-center text-gray-700 dark:text-gray-200">
+  <main class="text-center text-white">
     <svg
       class="fixed w-full h-full pointer-events-none z-49 fill-white"
       width="100%"
@@ -299,6 +299,13 @@ tryOnMounted(() => {
     @apply origin-bottom-left;
     @apply scale-x-100;
   }
+}
+
+#noise {
+  background: url('~/assets/noise.svg') repeat;
+  @apply w-full;
+  @apply h-full;
+  @apply mix-blend-multiply;
 }
 </style>
 
