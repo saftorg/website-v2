@@ -204,7 +204,7 @@ useSplitText(
       class="font-light text-left px-5vw text-9vw leading-relaxed md:(text-7vw leading-snug)"
     >
       Be it English or non-English, churches or youth gatherings, podcasts or
-      videos, closed settings or national conferences, at SAFT we venture into
+      videos, closed settings or national conferences, at <span class="thicken">SAFT</span> we venture into
       diverse spaces proclaiming the <span class="thicken">Good News</span> with
       intellectual vigour, grace and meekness calling all unto the free gift of
       <span class="thicken">salvation.</span>
