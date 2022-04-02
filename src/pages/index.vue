@@ -13,7 +13,6 @@ const loading = ref<HTMLElement>()
 const circleGroup = ref<HTMLElement>()
 const headerSection = ref<HTMLElement>()
 const descSection = ref<HTMLElement>()
-const scroller = ref<HTMLElement>()
 
 const loadIn = () => {
   const onCompleteLoad = () => {
@@ -275,7 +274,7 @@ useSplitText(
             building a great resource and a much-needed ministry.</template
           >
         </endorsement-card>
-        <div class="i-bi-arrow-left-circle"></div>
+        <div class=""></div>
       </div>
     </section>
   </div>
