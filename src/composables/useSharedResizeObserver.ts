@@ -1,3 +1,7 @@
-import { Fn } from "@vueuse/core";
+import { Fn } from '@vueuse/core'
 
-export const useSharedResizeObserver = (fn: Fn) => createSharedComposable(useEventListener(window, 'resize', fn))
+export const useSharedResizeObserver = (fn: Fn) =>
+  createSharedComposable(() => {
+    const {width} = useWindowSize()
+    watch(width, fn)
+  })

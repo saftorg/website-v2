@@ -34,3 +34,22 @@
     font-display: swap;
 }
 
+@font-face {
+    font-family: 'Joyride EXT';
+    src: url('JoyrideEXT.woff2') format('woff2'),
+        url('JoyrideEXT.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Joyride EXT Outline';
+    src: url('JoyrideEXTOutline.woff2') format('woff2'),
+        url('JoyrideEXTOutline.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+

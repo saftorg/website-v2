@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { breakpointsTailwind } from '@vueuse/core'
 import { useMainStore } from '~/stores/main'
+import LocomotiveScroll from 'locomotive-scroll'
 import gsap from 'gsap'
 
 const mainStore = useMainStore()
@@ -229,10 +230,10 @@ tryOnMounted(() => {
 
     <nav
       ref="menuLinks"
-      class="fixed my-auto w-full pointer-events-none md:px-0 md:my-0 px-3vw h-80vh z-51 translate-y-22vh md:h-fit"
+      class="fixed my-auto w-full pointer-events-none md:(px-0 my-0 h-fit) px-3vw h-80vh z-51 translate-y-22vh"
       :class="{ 'text-white': isDark, 'text-#01124F': !isDark }"
     >
-      <div class="flex flex-col mx-auto md:flex-row w-fit md:space-x-7vw">
+      <div class="flex flex-col mx-auto w-fit md:(flex-row space-x-7vw)">
         <div
           class="overflow-hidden"
           v-for="link in ['Home', 'About', 'Podcast', 'Areopagus']"
@@ -306,101 +307,5 @@ tryOnMounted(() => {
   @apply w-full;
   @apply h-full;
   @apply mix-blend-multiply;
-}
-</style>
-
-<style lang="scss">
-.ease {
-  &-in-sine {
-    transition-timing-function: cubic-bezier(0.12, 0, 0.39, 0);
-  }
-  &-out-sine {
-    transition-timing-function: cubic-bezier(0.61, 1, 0.88, 1);
-  }
-  &-in-out-sine {
-    transition-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
-  }
-  &-in-quad {
-    transition-timing-function: cubic-bezier(0.11, 0, 0.5, 0);
-  }
-  &-out-quad {
-    transition-timing-function: cubic-bezier(0.5, 1, 0.89, 1);
-  }
-  &-in-out-quad {
-    transition-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
-  }
-  &-in-cubic {
-    transition-timing-function: cubic-bezier(0.32, 0, 0.67, 0);
-  }
-  &-out-cubic {
-    transition-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
-  }
-  &-in-out-cubic {
-    transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
-  }
-  &-in-quart {
-    transition-timing-function: cubic-bezier(0.5, 0, 0.75, 0);
-  }
-  &-out-quart {
-    transition-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
-  }
-  &-in-out-quart {
-    transition-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
-  }
-  &-in-quint {
-    transition-timing-function: cubic-bezier(0.64, 0, 0.78, 0);
-  }
-  &-out-quint {
-    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  &-in-out-quint {
-    transition-timing-function: cubic-bezier(0.83, 0, 0.17, 1);
-  }
-  &-in-expo {
-    transition-timing-function: cubic-bezier(0.7, 0, 0.84, 0);
-  }
-  &-out-expo {
-    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  &-in-out-expo {
-    transition-timing-function: cubic-bezier(0.87, 0, 0.13, 1);
-  }
-  &-in-circ {
-    transition-timing-function: cubic-bezier(0.55, 0, 1, 0.45);
-  }
-  &-out-circ {
-    transition-timing-function: cubic-bezier(0, 0.55, 0.45, 1);
-  }
-  &-in-out-circ {
-    transition-timing-function: cubic-bezier(0.85, 0, 0.15, 1);
-  }
-  &-in-back {
-    transition-timing-function: cubic-bezier(0.36, 0, 0.66, -0.56);
-  }
-  &-out-back {
-    transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-  &-in-out-back {
-    transition-timing-function: cubic-bezier(0.68, -0.6, 0.32, 1.6);
-  }
-}
-
-.grid-cols {
-  &-16 {
-    grid-template-columns:
-      minmax(0vw, 1fr) minmax(0vw, 1.1fr) minmax(0vw, 1fr) minmax(0vw, 1.1fr)
-      minmax(0vw, 1fr) minmax(0vw, 1.1fr) minmax(0vw, 1fr) minmax(0vw, 1.1fr)
-      minmax(0vw, 1fr) minmax(0vw, 1.1fr) minmax(0vw, 1fr) minmax(0vw, 1.1fr)
-      minmax(0vw, 1fr) minmax(0vw, 1.1fr) minmax(0vw, 1fr);
-  }
-  &-24 {
-    grid-template-columns:
-      minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr)
-      minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr)
-      minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr)
-      minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr)
-      minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr)
-      minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr);
-  }
 }
 </style>

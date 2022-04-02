@@ -1,7 +1,5 @@
 import { Ref } from 'vue'
-import gsap from 'gsap'
 import SplitType from 'split-type'
-import { useSharedResizeObserver } from '~/composables/useSharedResizeObserver'
 
 type ElementSplitType = 'lines' | 'words' | 'chars'
 type Splitting =
@@ -27,18 +25,17 @@ export const useSplitText = (
     if (isSplitByWord) {
       instance.value!.words!.forEach((word) => {
         if (innerSpanTexts.value[word.textContent!]) {
-          word.classList.add(innerSpanTexts.value[word.textContent!] ?? '')
+          word.classList.add(...innerSpanTexts.value[word.textContent!].split(' ') ?? '')
         }
       })
     }
 
     const length = instance.value!.lines!.length
     instance.value!.lines?.forEach((line, index) => {
-      line.style.width = '103%'
       if (wrapping) {
         const { wrapType, wrapClass } = wrapping
         const wrapEl = document.createElement(wrapType)
-        wrapEl.classList.add(wrapClass)
+        wrapEl.classList.add(...wrapClass.split(' '))
         line.parentNode?.appendChild(wrapEl)
         wrapEl.appendChild(line)
       }
@@ -73,7 +70,8 @@ export const useSplitText = (
     instance.value = new SplitType(unRefedTarget, { types: splitBy })
     animate()
 
-    useSharedResizeObserver(() => {
+    const { width } = useWindowSize()
+    watch(width, () => {
       instance.value?.split({})
       animate()
     })

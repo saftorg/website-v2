@@ -3,7 +3,7 @@
   "packageManager": "pnpm@6.32.3",
   "scripts": {
     "build": "vite-ssg build",
-    "dev": "vite --port 3333 --open",
+    "dev": "vite --port 3333",
     "lint": "eslint .",
     "preview": "vite preview",
     "preview-https": "serve dist",
@@ -13,6 +13,7 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "@vueuse/components": "^8.2.0",
     "@vueuse/core": "^8.0.0",
     "@vueuse/head": "^0.7.5",
     "gsap": "^3.9.1",

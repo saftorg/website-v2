@@ -10,10 +10,9 @@ export const useMainStore = defineStore('main', () => {
     isMenuVisible,
     isMenuDark,
     isContentLoading,
-    bgColor
+    bgColor,
   }
 })
 
 if (import.meta.hot)
   import.meta.hot.accept(acceptHMRUpdate(useMainStore, import.meta.hot))
-
