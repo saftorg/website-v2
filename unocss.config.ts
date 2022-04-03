@@ -78,7 +78,7 @@ export default defineConfig({
     presetWebFonts({
       fonts: {
         sans: 'Manrope:300,400,700',
-        serif: 'Libre Baskerville:ital',
+        serif: { name: 'Libre Baskerville', italic: true },
       },
     }),
   ],
