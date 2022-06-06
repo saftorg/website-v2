@@ -1,13 +1,12 @@
-import { defineNuxtConfig } from 'nuxt'
+import { defineNuxtConfig } from 'nuxt';
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
-  buildModules: [
-    '@vueuse/nuxt',
-  ],
+  buildModules: ['@vueuse/nuxt'],
+  vite: { build: { assetsInlineLimit: 0 } },
   build: {
     postcss: {
-      postcssOptions: require("./postcss.config.js"),
+      postcssOptions: require('./postcss.config.js'),
     },
   },
-})
+});
