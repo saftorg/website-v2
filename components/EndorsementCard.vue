@@ -6,7 +6,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <article class="grid relative grid-cols-1 grid-cols-12 h-full isolate">
+  <article class="grid relative grid-cols-1 md:grid-cols-12 h-full isolate">
     <div
       class="backdrop-blur-3xl w-full h-full bg-white/30 shadow-2xl col-span-full md:col-start-2 md:col-end-[-1] md:mt-[2vw] mt-[8vw] row-start-1 z-0">
     </div>
