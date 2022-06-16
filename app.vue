@@ -12,6 +12,8 @@
 @import 'assets/joyride-vf.css';
 @import 'assets/manrope/manrope-vf.css';
 @import 'assets/joyride/stylesheet.css';
+@import 'assets/locomotive-scroll.css';
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap');
 
 body {
   @apply font-['Manrope'];
@@ -27,11 +29,9 @@ h2 {
   font-size: 9vw !important;
 }
 
-h3 {
-}
+h3 {}
 
-h4 {
-}
+h4 {}
 
 a {
   @apply cursor-pointer;
@@ -43,15 +43,9 @@ a {
   @apply grid-rows-[auto];
   @apply gap-y-[3.9vw];
   grid-template-columns:
-    minmax(0vw, 1fr) minmax(0vw, 1.1fr) minmax(0vw, 1fr) minmax(0vw, 1.1fr) minmax(
-      0vw,
-      1fr
-    )
-    minmax(0vw, 1.1fr) minmax(0vw, 1fr) minmax(0vw, 1.1fr) minmax(0vw, 1fr) minmax(
-      0vw,
-      1.1fr
-    )
-    minmax(0vw, 1fr) minmax(0vw, 1.1fr) minmax(0vw, 1fr) minmax(0vw, 1.1fr) minmax(0vw, 1fr);
+    minmax(0vw, 1fr) minmax(0vw, 1.1fr) minmax(0vw, 1fr) minmax(0vw, 1.1fr) minmax(0vw,
+      1fr) minmax(0vw, 1.1fr) minmax(0vw, 1fr) minmax(0vw, 1.1fr) minmax(0vw, 1fr) minmax(0vw,
+      1.1fr) minmax(0vw, 1fr) minmax(0vw, 1.1fr) minmax(0vw, 1fr) minmax(0vw, 1.1fr) minmax(0vw, 1fr);
 }
 
 @screen md {
@@ -61,39 +55,24 @@ a {
 }
 
 @screen lg {
-  h1 {
-  }
+  h1 {}
 
   h2 {
     font-size: 3.8vw !important;
   }
 
-  h3 {
-  }
+  h3 {}
 
-  h4 {
-  }
+  h4 {}
 
   .wrapper {
     @apply gap-y-0;
     grid-template-columns:
-      minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(
-        0vw,
-        1fr
-      )
-      minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(
-        0vw,
-        1.3fr
-      )
-      minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(
-        0vw,
-        1fr
-      )
-      minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(
-        0vw,
-        1.3fr
-      )
-      minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr);
+      minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw,
+        1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw,
+        1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw,
+        1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw,
+        1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr);
   }
 }
 </style>

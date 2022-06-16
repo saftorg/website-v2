@@ -2,21 +2,56 @@
 const props = defineProps({
   src: { type: String, required: true },
   alt: { type: String, required: true },
-})
+});
 </script>
 
 <template>
-  <article class="grid relative grid-cols-1 md:grid-cols-12 h-full isolate">
-    <div
-      class="backdrop-blur-3xl w-full h-full bg-white/30 shadow-2xl col-span-full md:col-start-2 md:col-end-[-1] md:mt-[2vw] mt-[8vw] row-start-1 z-0">
-    </div>
-    <div
-      class="absolute col-start-2 col-end-12 h-[45%] md:col-start-1 md:col-end-8 md:h-[97%] row-start-1 w-full isolate z-[1] shadow-2xl">
+  <article class="grid relative grid-cols-12 h-full isolate">
+    <div class="
+        backdrop-blur-3xl
+        w-full
+        h-full
+        bg-white/30
+        shadow-2xl
+        col-start-1
+        md:col-start-2
+        col-end-[-1]
+        md:mt-[2vw]
+        mt-[8vw]
+        row-start-1 row-end-2
+        z-0
+      "></div>
+    <div class="
+        absolute
+        col-start-2 col-end-12
+        h-[45%]
+        md:col-start-1 md:col-end-8 md:h-[97%]
+        row-start-1
+        w-full
+        isolate
+        z-[1]
+        shadow-2xl
+      ">
       <img :src="props.src" :alt="props.alt" class="object-cover absolute w-full h-full z-[1]" />
-      <div class="absolute w-full h-full bg-gradient-to-b md:bg-gradient-to-r from-transparent to-black/70 z-[2]"></div>
+      <div class="
+          absolute
+          w-full
+          h-full
+          bg-gradient-to-b
+          md:bg-gradient-to-r
+          from-transparent
+          to-black/70
+          z-[2]
+        "></div>
     </div>
-    <div
-      class="col-start-2 col-end-12 mt-[55%] md:col-start-6 md:col-end-12 md:self-center md:mt-[2vw] row-start-1 text-left z-[2]">
+    <div class="
+        col-start-2 col-end-12
+        mt-[55%]
+        md:col-start-6 md:col-end-12 md:self-center md:mt-[2vw]
+        row-start-1
+        text-left
+        z-[2]
+      ">
       <h3>
         <slot name="name" />
       </h3>

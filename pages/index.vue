@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger.js';
 
 import BrianAutenImg from '~/assets/brian-auten.jpg';
+import AlisaChildersImg from '~/assets/alisa-childers.png';
 import ThreedCircle from '~/assets/3d-circle.svg';
 import LightBlueBlur from '~/assets/light-blue.png';
 import MediumPurpleBlur from '~/assets/medium-purple.png';
@@ -14,6 +15,33 @@ const loading = ref<HTMLElement>();
 const circleGroup = ref<HTMLElement>();
 const headerSection = ref<HTMLElement>();
 const descSection = ref<HTMLElement>();
+
+const {
+  state: endorsement,
+  next: nextEndorsement,
+  prev: prevEndorsement,
+  index: endorsementIndex,
+} = useCycleList<{
+  title: string;
+  subTitle: string;
+  img: any;
+  description: string;
+}>([
+  {
+    title: 'Alisa Childers',
+    img: AlisaChildersImg,
+    subTitle: 'Author - Another Gospel?',
+    description:
+      'I have been so impressed with the work SAFT team has been doing to bring apologetics awareness to India! It has been a joy to follow them and pray for them as they fulfill the Great Commission by bringing reasoned arguments in defense of the Christian faith.',
+  },
+  {
+    title: 'Brian Auten',
+    img: BrianAutenImg,
+    subTitle: 'Apologetics315',
+    description:
+      'SAFT Apologetics has risen to the challenges of skepticism and doubt in today‚Äôs culture by giving thoughtful answers and meaningful response through their excellent ministry. The team at SAFT has a heart for the Gospel, a passion for the truth, and compassion for our world which is evident in their gracious engagement. They are building a great resource and a much-needed ministry.',
+  },
+]);
 
 const loadIn = (isLocked: Ref<boolean>) => {
   const onCompleteLoad = () => {
@@ -83,12 +111,12 @@ const bgSections: {
   backgroundColor: string;
   trigger: Ref<HTMLElement | undefined>;
 }[] = [
-  {
-    backgroundColor: '#0F6CAF',
-    trigger: headerSection,
-  },
-  { backgroundColor: '#5B14CE', trigger: descSection },
-];
+    {
+      backgroundColor: '#0F6CAF',
+      trigger: headerSection,
+    },
+    { backgroundColor: '#5B14CE', trigger: descSection },
+  ];
 bgSections.forEach(({ backgroundColor, trigger }) => {
   useIntersectionObserver(trigger, ([{ isIntersecting }]) => {
     if (isIntersecting) mainStore.value.bgColor = backgroundColor;
@@ -99,32 +127,34 @@ tryOnMounted(() => {
   gsap.registerPlugin(ScrollTrigger);
   const isLocked = useScrollLock(document.querySelector('html'));
   loadIn(isLocked);
-  gsap.from('#tag-line', {
-    y: '-200%',
-    scrollTrigger: {
-      trigger: '#tag-line',
-      scrub: 0.5,
+  const marqueeElements = [
+    {
+      name: '.marquee-inner.forward',
+      scrollOffset: '+=10%',
+      x: { from: '-25%', to: '-58.55%', duration: 18 },
     },
-    ease: 'none',
+    {
+      name: '.marquee-inner.reverse',
+      scrollOffset: '-=10%',
+      x: { to: '-25%', from: '-58.55%', duration: 18 },
+    },
+  ];
+
+  marqueeElements.forEach((el) => {
+    gsap.fromTo(
+      el.name,
+      { x: el.x.from },
+      { x: el.x.to, repeat: -1, duration: 18, ease: 'linear' }
+    );
+
+    gsap.to(el.name, {
+      x: el.scrollOffset,
+      scrollTrigger: {
+        trigger: el.name,
+        scrub: 0.5,
+      },
+    });
   });
-  gsap.to('.marquee-inner.forward', {
-    x: '+=10%',
-    scrollTrigger: { trigger: '.marquee-inner.forward', scrub: true },
-  });
-  gsap.to('.marquee-inner.reverse', {
-    x: '-=10%',
-    scrollTrigger: { trigger: '.marquee-inner.reverse', scrub: true },
-  });
-  gsap.fromTo(
-    '.marquee-inner.forward',
-    { x: '-25%' },
-    { x: '-58.55%', repeat: -1, duration: 18, ease: 'linear' }
-  );
-  gsap.fromTo(
-    '.marquee-inner.reverse',
-    { x: '-58.55%' },
-    { x: '-25%', repeat: -1, duration: 18, ease: 'linear' }
-  );
 });
 
 useSplitText(
@@ -155,16 +185,17 @@ useSplitText(
 
 useSplitText(
   '#trust',
-  (line: HTMLElement) =>
+  (line: HTMLElement, index: number) =>
     gsap.fromTo(
       line,
       { rotate: 15, y: '150%' },
       {
         transformOrigin: 'top left',
         rotate: 0,
+        delay: 0.1 * index,
         y: 0,
         scrollTrigger: {
-          trigger: line,
+          trigger: '#trust',
           start: 'center bottom',
         },
         duration: 1.2,
@@ -178,8 +209,7 @@ useSplitText(
 
 <template>
   <div class="scroller">
-    <svg
-      class="
+    <svg class="
         fixed
         w-full
         h-full
@@ -188,26 +218,12 @@ useSplitText(
         z-[49]
         fill-[none]
         stroke-white
-      "
-      width="100%"
-      height="100%"
-      viewBox="0 0 100 100"
-      preserveAspectRatio="none"
-    >
-      <path
-        ref="loading"
-        class="[stroke-dasharray:1] [stroke-dashoffset:1]"
-        pathLength="1"
-        d="M 0 0 H 100 V 100 H 0 Z"
-      />
+      " width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+      <path ref="loading" class="[stroke-dasharray:1] [stroke-dashoffset:1]" pathLength="1"
+        d="M 0 0 H 100 V 100 H 0 Z" />
     </svg>
-    <header
-      ref="headerSection"
-      class="grid relative w-screen h-screen pointer-events-none isolate z-[-1]"
-    >
-      <img
-        :src="MediumPurpleBlur"
-        class="
+    <header ref="headerSection" class="grid relative w-screen h-screen pointer-events-none isolate z-[-1]">
+      <img :src="MediumPurpleBlur" class="
           header-blob
           absolute
           top-[-30vh]
@@ -218,11 +234,9 @@ useSplitText(
           w-[150%]
           md:w-[90%]
           opacity-0
-        "
-      />
-      <img
-        :src="LightBlueBlur"
-        class="
+        " />
+
+      <img :src="LightBlueBlur" class="
           header-blob
           absolute
           z-[-1]
@@ -231,17 +245,15 @@ useSplitText(
           w-[150%]
           md:w-[90%]
           opacity-0
-        "
-      />
-      <h1 id="tag-line" class="place-self-center">
+        " />
+
+      <h1 id="tag-line" class="place-self-center" data-scroll data-scroll-speed="-2">
         Equipping the <span>believer</span> to <span>defend</span> their
         <span>faith</span><br />
         <span>anytime, anywhere</span>.
       </h1>
 
-      <div
-        ref="circleGroup"
-        class="
+      <div ref="circleGroup" class="
           grid
           absolute
           h-screen
@@ -250,29 +262,11 @@ useSplitText(
           aspect-square
           z-[-1]
           md:grid-cols-6 md:grid-rows-6 md:aspect-none
-        "
-        data-scroll
-        data-scroll-speed="-1"
-      >
-        <img
-          :src="ThreedCircle"
-          alt="3d-circle"
-          class="col-start-2 row-start-6 threed-circle big"
-        />
-        <img
-          :src="ThreedCircle"
-          alt="3d-circle"
-          class="col-start-2 row-start-5 place-self-end threed-circle small"
-        />
-        <img
-          :src="ThreedCircle"
-          alt="3d-circle"
-          class="col-start-6 row-start-3 threed-circle rotate-[-130] big"
-        />
-        <img
-          :src="ThreedCircle"
-          alt="3d-circle"
-          class="
+        ">
+        <img :src="ThreedCircle" alt="3d-circle" class="col-start-2 row-start-6 threed-circle big" />
+        <img :src="ThreedCircle" alt="3d-circle" class="col-start-2 row-start-5 place-self-end threed-circle small" />
+        <img :src="ThreedCircle" alt="3d-circle" class="col-start-6 row-start-3 threed-circle rotate-[-130] big" />
+        <img :src="ThreedCircle" alt="3d-circle" class="
             col-start-5
             row-start-3
             justify-self-end
@@ -280,15 +274,12 @@ useSplitText(
             threed-circle
             rotate-[-135]
             small
-          "
-        />
+          " />
       </div>
     </header>
 
     <section ref="descSection" class="mt-[10vh] wrapper">
-      <p
-        id="main-desc"
-        class="
+      <p id="main-desc" class="
           font-light
           text-left
           px-[5vw]
@@ -297,8 +288,7 @@ useSplitText(
           md:text-[6vw] md:leading-snug
           col-span-full
           row-start-1
-        "
-      >
+        ">
         Be it English or non-English, churches or youth gatherings, podcasts or
         videos, closed settings or national conferences, at
         <span class="thicken">SAFT</span> we venture into diverse spaces
@@ -307,19 +297,16 @@ useSplitText(
         <span class="thicken">salvation.</span>
       </p>
 
-      <oval-button
-        class="
+      <oval-button class="
           col-start-2 col-end-15
           md:col-start-18 md:col-end-23
           row-start-2
           mt-[3vw]
-        "
-      >
+        ">
         Learn about us
       </oval-button>
 
-      <div
-        class="
+      <div class="
           col-span-full
           row-start-3
           uppercase
@@ -327,8 +314,7 @@ useSplitText(
           marquee
           text-[7.2vw]
           mt-[13vw]
-        "
-      >
+        ">
         <div class="marquee-inner forward font-joyride-ext-out">
           Seeking Answers Finding Truth Seeking Answers Finding Truth Seeking
           Answers Finding Truth
@@ -341,25 +327,22 @@ useSplitText(
     </section>
 
     <section class="md:px-0 px-[5vw] wrapper my-[13vw]">
-      <h2
-        id="trust"
-        class="col-span-full md:col-span-5 md:col-start-4 text-left mt-[5vw]"
-      >
+      <h2 id="trust" class="col-span-full md:col-span-5 md:col-start-4 text-left mt-[5vw]">
         Here’s what people who <span class="font-serif italic">trust</span> us
         have to say
       </h2>
-      <oval-button
-        class="
+      <oval-button class="
           col-start-2 col-end-15
           row-start-3
           md:col-start-4 md:col-span-6 md:row-start-2
           mt-[3vw]
-        "
-      >
+        ">
         See all endorsements
       </oval-button>
-      <div
-        class="
+      <div class="
+          -translate-y-7
+          scale-95
+          origin-top
           row-start-2
           col-span-full
           h-[70vh]
@@ -370,21 +353,69 @@ useSplitText(
           md:row-end-3
           md:h-[45vw]
           md:mb-0
-        "
-      >
-        <endorsement-card :src="BrianAutenImg" alt="Brian Auten">
-          <template #name>Brian Auten</template>
-          <template #sub-title>Apologetics315</template>
-          <template #body>
-            SAFT Apologetics has risen to the challenges of skepticism and doubt
-            in today's culture by giving thoughtful answers and meaningful
-            response through their excellent ministry. The team at SAFT has a
-            heart for the Gospel, a passion for the truth, and compassion for
-            our world which is evident in their gracious engagement. They are
-            building a great resource and a much-needed ministry.
-          </template>
+        ">
+        <endorsement-card :src="endorsement.img" :alt="endorsement.title">
+          <template #name>{{ endorsement.title }}</template>
+          <template #sub-title>{{ endorsement.subTitle }}</template>
+          <template #body>{{ endorsement.description }}</template>
         </endorsement-card>
-        <div class=""></div>
+      </div>
+
+      <div class="
+          row-start-2
+          col-span-full
+          h-[70vh]
+          mb-[42vw]
+          md:col-span-11
+          md:col-start-11
+          md:row-start-1
+          md:row-end-3
+          md:h-[45vw]
+          md:mb-0
+        ">
+        <endorsement-card :src="endorsement.img" :alt="endorsement.title">
+          <template #name>{{ endorsement.title }}</template>
+          <template #sub-title>{{ endorsement.subTitle }}</template>
+          <template #body>{{ endorsement.description }}</template>
+        </endorsement-card>
+      </div>
+      <div class="
+          md:mt-[5vw]
+          row-start-3
+          md:col-start-11 md:col-end-22
+          flex
+          justify-center
+        ">
+        <button class="
+            rounded-[50%]
+            aspect-square
+            h-14
+            p-2
+            border border-white
+            transition-ease-back
+            hover:scale-[1.15]
+          ">
+          <svg xmlns="http://www.w3.org/2000/svg" class="aspect-square h-fit" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor" stroke-width="1">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+          </svg>
+        </button>
+        <button class="
+            ml-4
+            cursor-pointer
+            rounded-[50%]
+            aspect-square
+            h-14
+            p-2
+            border border-white
+            transition-ease-back
+            hover:scale-[1.15]
+          ">
+          <svg xmlns="http://www.w3.org/2000/svg" class="rotate-180 aspect-square h-fit" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor" stroke-width="1">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+          </svg>
+        </button>
       </div>
     </section>
   </div>
@@ -455,8 +486,6 @@ useSplitText(
 */
 #tag-line {
   @apply text-[8vw] leading-9 mx-auto;
-  perspective: 10px;
-  transform: translateZ(5px);
   font-family: 'Joyride VF';
 
   span {
