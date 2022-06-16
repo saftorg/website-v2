@@ -5,9 +5,8 @@ import ScrollTrigger from 'gsap/dist/ScrollTrigger.js';
 export const useParallaxScroll = (
   el: Ref<HTMLElement> | HTMLElement | null = null
 ) => {
-  gsap.registerPlugin(ScrollTrigger);
-
   tryOnMounted(() => {
+    gsap.registerPlugin(ScrollTrigger);
     unref(el ?? document)
       .querySelectorAll('[data-scroll]')
       .forEach((scrollEl: HTMLElement) => {
