@@ -7,11 +7,13 @@ const props = defineProps({
 
 <template>
   <article class="grid relative grid-cols-12 h-full isolate">
-    <div class="
+    <div
+      class="
         backdrop-blur-3xl
         w-full
         h-full
-        bg-white/30
+        [@supports(backdrop-filter:blur(0))]:bg-white/30
+        bg-[#5B14CE]
         shadow-2xl
         col-start-1
         md:col-start-2
@@ -20,8 +22,10 @@ const props = defineProps({
         mt-[8vw]
         row-start-1 row-end-2
         z-0
-      "></div>
-    <div class="
+      "
+    ></div>
+    <div
+      class="
         absolute
         col-start-2 col-end-12
         h-[45%]
@@ -31,9 +35,15 @@ const props = defineProps({
         isolate
         z-[1]
         shadow-2xl
-      ">
-      <img :src="props.src" :alt="props.alt" class="object-cover absolute w-full h-full z-[1]" />
-      <div class="
+      "
+    >
+      <img
+        :src="props.src"
+        :alt="props.alt"
+        class="object-cover absolute w-full h-full z-[1]"
+      />
+      <div
+        class="
           absolute
           w-full
           h-full
@@ -42,16 +52,19 @@ const props = defineProps({
           from-transparent
           to-black/70
           z-[2]
-        "></div>
+        "
+      ></div>
     </div>
-    <div class="
+    <div
+      class="
         col-start-2 col-end-12
         mt-[55%]
         md:col-start-6 md:col-end-12 md:self-center md:mt-[2vw]
         row-start-1
         text-left
         z-[2]
-      ">
+      "
+    >
       <h3>
         <slot name="name" />
       </h3>
@@ -70,12 +83,14 @@ h3 {
   @apply text-[8.3vw];
   @apply font-extrabold;
   @apply leading-none;
+  @apply mb-2;
 }
 
 h4 {
   @apply text-[4.3vw];
   @apply font-semibold;
   @apply uppercase;
+  @apply leading-tight;
   @apply mb-[5vw];
 }
 
