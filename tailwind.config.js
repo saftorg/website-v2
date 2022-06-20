@@ -1,8 +1,10 @@
 module.exports = {
   content: [
     './assets/**/*.css',
-    './components/*.{vue,js}',
-    './components/**/*.{vue,js}',
+    './components/*.{vue,js,ts}',
+    './components/**/*.{vue,js,ts}',
+    './composables/*.{vue,js,ts}',
+    './composables/**/*.{vue,js,ts}',
     './pages/*.vue',
     './pages/**/*.vue',
     './layouts/*.vue',
@@ -42,6 +44,7 @@ module.exports = {
         'out-back': 'cubic-bezier(0.34, 1.56, 0.64, 1)',
         'in-out-back': 'cubic-bezier(0.68, -0.6, 0.32, 1.6)',
       },
+
       gridTemplateColumns: {
         16: `
         minmax(0vw, 1fr) minmax(0vw, 1.1fr) minmax(0vw, 1fr) minmax(0vw, 1.1fr)

@@ -15,37 +15,34 @@ const onIntersect: IntersectionObserverCallback = ([
 <template>
   <a
     v-intersection-observer="onIntersect"
-    class="
-      flex
-      relative
-      justify-center
-      content-center
-      scale-0
-      transition-ease-back
-      hover:scale-[1.15]
-    "
+    class="grid relative place-items-center scale-0 bounce"
   >
     <div
       class="
-        relative
+        row-start-1
+        col-start-1
+        row-end-2
+        col-end-2
         border
         rounded-[50%]
         h-[35vw]
         md:h-[10vw]
-        w-screen
+        w-full
         -rotate-12
       "
     ></div>
-    <p class="absolute top-[13vw] text-[5vw] md:top-[4vw] md:text-[1.4vw]">
+    <p
+      class="
+        row-start-1
+        col-start-1
+        row-end-2
+        col-end-2
+        text-center text-[5vw]
+        max-w-[42vw]
+        md:max-w-[12vw] md:text-[1.4vw]
+      "
+    >
       <slot />
     </p>
   </a>
 </template>
-
-<style lang="scss">
-.transition-ease-back {
-  @apply transition-transform;
-  @apply ease-out-back;
-  @apply duration-300;
-}
-</style>

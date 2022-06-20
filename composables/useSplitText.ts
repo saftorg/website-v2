@@ -12,7 +12,8 @@ export const useSplitText = (
     | Ref<HTMLElement>
     | string
     | Ref<HTMLElement | undefined>
-    | Ref<HTMLElement | null>,
+    | Ref<HTMLElement | null>
+    | HTMLElement,
   elAnimation: (
     line: HTMLElement,
     index: number
@@ -40,7 +41,7 @@ export const useSplitText = (
       if (wrapping) {
         const { wrapType, wrapClass } = wrapping;
         const wrapEl = document.createElement(wrapType);
-        line.classList.add('h-fit');
+        line.classList.add('h-fit', 'origin-top-left');
         wrapEl.classList.add(...wrapClass.split(' '));
         line.parentNode?.appendChild(wrapEl);
         wrapEl.appendChild(line);

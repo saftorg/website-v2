@@ -3,17 +3,21 @@ const props = defineProps({
   src: { type: String, required: true },
   alt: { type: String, required: true },
 });
+
+const mainStore = useMainStore();
 </script>
 
 <template>
   <article class="grid relative grid-cols-12 h-full isolate">
     <div
+      id="background"
       class="
+        transition
+        duration-500
         backdrop-blur-3xl
         w-full
         h-full
         [@supports(backdrop-filter:blur(0))]:bg-white/30
-        bg-[#5B14CE]
         shadow-2xl
         col-start-1
         md:col-start-2
@@ -79,6 +83,12 @@ const props = defineProps({
 </template>
 
 <style lang="scss" scoped>
+@supports not (backdrop-filter: blur(0)) {
+  #background {
+    background-color: v-bind('mainStore.bgColor') !important;
+  }
+}
+
 h3 {
   @apply text-[8.3vw];
   @apply font-extrabold;
