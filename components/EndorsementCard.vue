@@ -1,4 +1,7 @@
 <script setup lang="ts">
+// workaround for edge case bug
+import { unref as _unref } from 'vue';
+
 const props = defineProps({
   src: { type: String, required: true },
   alt: { type: String, required: true },
