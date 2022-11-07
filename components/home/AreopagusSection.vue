@@ -2,6 +2,7 @@
 import { breakpointsTailwind } from '@vueuse/core';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger.js';
+import { Ref } from 'vue';
 import { Mountain, TAPLogo } from '~/images';
 
 useHead({ title: 'SAFT Apologetics' });
@@ -23,12 +24,10 @@ const breakpointAnimationValues: {
   isNotMobile: { hero: { x: '-50%', scale: 2 } },
 };
 
-const isMobile = computed<Keys>(() =>
-  useBreakpoints(breakpointsTailwind).smaller('md') ? 'isMobile' : 'isNotMobile'
-);
+const isMobile = useBreakpoints(breakpointsTailwind).smaller('md');
 
 const computedAnimationValues = computed(
-  () => breakpointAnimationValues[isMobile.value]
+  () => breakpointAnimationValues[isMobile.value ? 'isMobile' : 'isNotMobile']
 );
 
 tryOnMounted(() => {
@@ -42,7 +41,7 @@ tryOnMounted(() => {
     .to('#areopagus-hero', { scale: 1, x: 0 }, 0.5)
     .from('#areopagus-desc', { autoAlpha: 0, y: '-=15%', duration: 0.5 });
 
-  const tl = gsap
+  gsap
     .timeline({
       scrollTrigger: {
         trigger: '#areopagus-screen',
