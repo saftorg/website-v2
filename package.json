@@ -7,19 +7,17 @@
     "preview": "nuxt preview"
   },
   "devDependencies": {
-    "@vueuse/components": "^8.3.1",
-    "@vueuse/core": "^8.3.1",
-    "@vueuse/nuxt": "^8.3.1",
-    "autoprefixer": "^10.4.5",
-    "nuxt": "3.0.0-rc.3",
-    "postcss": "^8.4.13",
-    "sass": "^1.51.0",
-    "tailwindcss": "3.1",
-    "typescript": "^4.6.4"
+    "@nuxtjs/tailwindcss": "^6.1.2",
+    "@vueuse/components": "^9.4.0",
+    "@vueuse/core": "^9.4.0",
+    "@vueuse/nuxt": "^9.4.0",
+    "nuxt": "^3.0.0-rc.13",
+    "sass": "^1.55.0",
+    "typescript": "^4.8.4"
   },
   "dependencies": {
-    "gsap": "^3.10.4",
+    "gsap": "^3.11.3",
     "locomotive-scroll": "^4.1.4",
-    "split-type": "^0.2.5"
+    "split-type": "^0.3.3"
   }
 }

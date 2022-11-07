@@ -1,10 +1,7 @@
 <script setup lang="ts">
 import { Ref } from 'vue';
 import gsap from 'gsap';
-import ScrollTrigger from 'gsap/dist/ScrollTrigger.js';
-import ThreedCircle from '~/assets/3d-circle.svg';
-import LightBlueBlur from '~/assets/light-blue.png';
-import MediumPurpleBlur from '~/assets/medium-purple.png';
+import { ThreedCircle, LightBlueBlur, MediumPurpleBlur } from '~/images';
 
 const mainStore = useMainStore();
 const loading = ref<HTMLElement>();
@@ -75,6 +72,7 @@ const loadIn = (isLocked: Ref<boolean>) => {
 };
 
 tryOnMounted(() => {
+  mainStore.value.isMenuVisible = false;
   const isLocked = useScrollLock(document.querySelector('html'));
   loadIn(isLocked);
 });
@@ -83,16 +81,7 @@ tryOnMounted(() => {
 <template>
   <section>
     <svg
-      class="
-        fixed
-        w-full
-        h-full
-        pointer-events-none
-        stroke-1
-        z-[49]
-        fill-[none]
-        stroke-white
-      "
+      class="fixed w-full h-full pointer-events-none stroke-1 z-[49] fill-[none] stroke-white"
       width="100%"
       height="100%"
       viewBox="0 0 100 100"
@@ -112,32 +101,12 @@ tryOnMounted(() => {
     >
       <img
         :src="MediumPurpleBlur"
-        class="
-          header-blob
-          absolute
-          top-[-30vh]
-          left-[-40vw]
-          md:top-[-50vh]
-          z-[-1]
-          md:-left-[30vw]
-          w-[150%]
-          md:w-[90%]
-          opacity-0
-        "
+        class="header-blob absolute top-[-30vh] left-[-40vw] md:top-[-50vh] z-[-1] md:-left-[30vw] w-[150%] md:w-[90%] opacity-0"
       />
 
       <img
         :src="LightBlueBlur"
-        class="
-          header-blob
-          absolute
-          z-[-1]
-          top-[40vh]
-          left-[50vw]
-          w-[150%]
-          md:w-[90%]
-          opacity-0
-        "
+        class="header-blob absolute z-[-1] top-[40vh] left-[50vw] w-[150%] md:w-[90%] opacity-0"
       />
 
       <h1
@@ -153,16 +122,7 @@ tryOnMounted(() => {
 
       <div
         ref="circleGroup"
-        class="
-          grid
-          absolute
-          h-screen
-          w-screen
-          pointer-events-none
-          aspect-square
-          z-[-1]
-          md:grid-cols-6 md:grid-rows-6 md:aspect-none
-        "
+        class="grid absolute h-screen w-screen pointer-events-none aspect-square z-[-1] md:grid-cols-6 md:grid-rows-6 md:aspect-none"
       >
         <img
           :src="ThreedCircle"
@@ -182,15 +142,7 @@ tryOnMounted(() => {
         <img
           :src="ThreedCircle"
           alt="3d-circle"
-          class="
-            col-start-5
-            row-start-3
-            justify-self-end
-            self-start
-            threed-circle
-            rotate-[-135]
-            small
-          "
+          class="col-start-5 row-start-3 justify-self-end self-start threed-circle rotate-[-135] small"
         />
       </div>
     </header>

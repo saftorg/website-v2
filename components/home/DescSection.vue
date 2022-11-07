@@ -1,10 +1,7 @@
 <script setup lang="ts">
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger.js';
-
-import BrianAutenImg from '~/assets/brian-auten.jpg';
-import AlisaChildersImg from '~/assets/alisa-childers.png';
-import TysonImg from '~/assets/tyson-james.jpg';
+import { BrianAutenImg, AlisaChildersImg, TysonImg } from '~/images';
 
 const isAnimating = ref(false);
 const endorsements = ref<
@@ -36,21 +33,16 @@ const endorsements = ref<
     description: `The world needs more SAFT Apologetics! As the Global Chapters Director for Reasonable Faith, I'm thrilled to see such a dedicated and exuberant team putting out great content and regularly hosting interviews with amazing scholars. I give this ministry my full recommendation! Subscribe, watch, like, and share!`,
   },
 ]);
-
 const endorsementIndex = ref(0);
-
 const setIndex = (n = 0) => {
   const offset = endorsementIndex.value + n;
   const length = endorsements.value.length;
   const val = ((offset % length) + length) % length;
   return val;
 };
-
 const nextEndorsement = () => {
   if (isAnimating.value) return;
-
   isAnimating.value = true;
-
   gsap
     .timeline({
       force3D: true,
@@ -106,12 +98,9 @@ const nextEndorsement = () => {
       0.2
     );
 };
-
 const prevEndorsement = () => {
   if (isAnimating.value) return;
-
   isAnimating.value = true;
-
   gsap
     .timeline({
       force3D: true,
@@ -167,7 +156,6 @@ const prevEndorsement = () => {
       0.2
     );
 };
-
 tryOnMounted(() => {
   gsap.registerPlugin(ScrollTrigger);
   const marqueeElements = [
@@ -182,14 +170,12 @@ tryOnMounted(() => {
       x: { to: '-25%', from: '-58.55%', duration: 18 },
     },
   ];
-
   marqueeElements.forEach((el) => {
     gsap.fromTo(
       el.name,
       { x: el.x.from },
       { x: el.x.to, repeat: -1, duration: 18, ease: 'linear' }
     );
-
     gsap.to(el.name, {
       x: el.scrollOffset,
       scrollTrigger: {
@@ -199,7 +185,6 @@ tryOnMounted(() => {
     });
   });
 });
-
 useSplitText(
   '#main-desc',
   (line: HTMLElement) =>
@@ -225,7 +210,6 @@ useSplitText(
     ),
   'lines words'
 );
-
 useLineRevealAnimation('#trust');
 </script>
 
@@ -234,16 +218,7 @@ useLineRevealAnimation('#trust');
     <section class="mt-[10vh] wrapper">
       <p
         id="main-desc"
-        class="
-          font-light
-          text-left
-          px-[5vw]
-          text-[9vw]
-          leading-relaxed
-          md:text-[6vw] md:leading-snug
-          col-span-full
-          row-start-1
-        "
+        class="font-light text-left px-[5vw] text-[9vw] leading-relaxed md:text-[6vw] md:leading-snug col-span-full row-start-1"
       >
         Be it English or non-English, churches or youth gatherings, podcasts or
         videos, closed settings or national conferences, at
@@ -254,26 +229,13 @@ useLineRevealAnimation('#trust');
       </p>
 
       <oval-button
-        class="
-          col-start-2 col-end-15
-          md:col-start-18 md:col-end-23
-          row-start-2
-          mt-[3vw]
-        "
+        class="col-start-2 col-end-15 md:col-start-18 md:col-end-23 row-start-2 mt-[3vw]"
       >
         Learn about us
       </oval-button>
 
       <div
-        class="
-          col-span-full
-          row-start-3
-          uppercase
-          -rotate-3
-          marquee
-          text-[7.2vw]
-          mt-[13vw]
-        "
+        class="col-span-full row-start-3 uppercase -rotate-3 marquee text-[7.2vw] mt-[13vw]"
       >
         <div class="marquee-inner forward font-joyride-ext-out">
           Seeking Answers Finding Truth Seeking Answers Finding Truth Seeking
@@ -296,31 +258,13 @@ useLineRevealAnimation('#trust');
       </h2>
 
       <oval-button
-        class="
-          col-start-2 col-end-15
-          row-start-4
-          md:col-start-4 md:col-span-6 md:row-start-2
-          mt-[3vw]
-        "
+        class="col-start-2 col-end-15 row-start-4 md:col-start-4 md:col-span-6 md:row-start-2 mt-[3vw]"
       >
         See all endorsements
       </oval-button>
 
       <div
-        class="
-          col-span-full
-          row-start-3
-          mt-[10vw]
-          md:mt-0
-          mb-[30vw]
-          md:col-span-11 md:col-start-11 md:row-start-1 md:row-end-3 md:mb-0
-          relative
-          [&>*]:absolute [&>*]:origin-top
-          isolate
-          h-[70vh]
-          md:h-[45vw]
-          [&>*]:md:h-[45vw] [&>*]:h-[70vh]
-        "
+        class="col-span-full row-start-3 mt-[10vw] md:mt-0 mb-[30vw] md:col-span-11 md:col-start-11 md:row-start-1 md:row-end-3 md:mb-0 relative [&>*]:absolute [&>*]:origin-top isolate h-[70vh] md:h-[45vw] [&>*]:md:h-[45vw] [&>*]:h-[70vh]"
         id="endorsement-cards"
       >
         <div class="scale-95 -translate-y-7">
@@ -353,7 +297,10 @@ useLineRevealAnimation('#trust');
           </endorsement-card>
         </div>
 
-        <div class="scale-105 translate-y-7" :style="{ opacity: 0 }">
+        <div
+          class="scale-105 translate-y-7"
+          :style="{ opacity: 0 }"
+        >
           <endorsement-card
             :src="endorsements[setIndex(1)].img"
             :alt="endorsements[setIndex(1)].title"
@@ -369,26 +316,11 @@ useLineRevealAnimation('#trust');
         </div>
       </div>
       <div
-        class="
-          md:mt-[8vw]
-          row-start-2
-          md:row-start-3
-          col-span-full
-          md:col-start-11 md:col-end-22
-          flex
-          justify-center
-        "
+        class="md:mt-[8vw] row-start-2 md:row-start-3 col-span-full md:col-start-11 md:col-end-22 flex justify-center"
       >
         <button
           @click="prevEndorsement"
-          class="
-            rounded-[50%]
-            aspect-square
-            h-14
-            p-2
-            border border-white
-            bounce
-          "
+          class="rounded-[50%] aspect-square h-14 p-2 border border-white bounce"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -408,16 +340,7 @@ useLineRevealAnimation('#trust');
 
         <button
           @click="nextEndorsement"
-          class="
-            ml-4
-            cursor-pointer
-            rounded-[50%]
-            aspect-square
-            h-14
-            p-2
-            border border-white
-            bounce
-          "
+          class="ml-4 cursor-pointer rounded-[50%] aspect-square h-14 p-2 border border-white bounce"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -443,7 +366,6 @@ useLineRevealAnimation('#trust');
 .marquee {
   @apply relative;
   @apply overflow-hidden;
-
   &-inner {
     @apply relative;
     @apply w-max;
@@ -452,15 +374,12 @@ useLineRevealAnimation('#trust');
     animation: marquee 18s linear infinite;
   }
 }
-
 .animation-delay {
   animation: marquee 12.5s linear infinite;
 }
-
 #main-desc {
   font-family: 'Manrope VF';
   font-variation-settings: 'wght' 200;
-
   div {
     @apply transition-all;
     transition-timing-function: cubic-bezier(0.25, 1, 0.5, 1);

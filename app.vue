@@ -31,11 +31,9 @@ h2 {
   font-size: 9vw !important;
 }
 
-h3 {
-}
+h3 {}
 
-h4 {
-}
+h4 {}
 
 p {
   @apply text-[6vw];
@@ -43,8 +41,7 @@ p {
   @apply text-left;
 }
 
-small {
-}
+small {}
 
 a {
   @apply cursor-pointer;
@@ -93,15 +90,9 @@ a {
   @apply grid-rows-[auto];
   @apply gap-y-[3.9vw];
   grid-template-columns:
-    minmax(0vw, 1fr) minmax(0vw, 1.1fr) minmax(0vw, 1fr) minmax(0vw, 1.1fr) minmax(
-      0vw,
-      1fr
-    )
-    minmax(0vw, 1.1fr) minmax(0vw, 1fr) minmax(0vw, 1.1fr) minmax(0vw, 1fr) minmax(
-      0vw,
-      1.1fr
-    )
-    minmax(0vw, 1fr) minmax(0vw, 1.1fr) minmax(0vw, 1fr) minmax(0vw, 1.1fr) minmax(0vw, 1fr);
+    minmax(0vw, 1fr) minmax(0vw, 1.1fr) minmax(0vw, 1fr) minmax(0vw, 1.1fr) minmax(0vw,
+      1fr) minmax(0vw, 1.1fr) minmax(0vw, 1fr) minmax(0vw, 1.1fr) minmax(0vw, 1fr) minmax(0vw,
+      1.1fr) minmax(0vw, 1fr) minmax(0vw, 1.1fr) minmax(0vw, 1fr) minmax(0vw, 1.1fr) minmax(0vw, 1fr);
 }
 
 .bounce {
@@ -129,39 +120,24 @@ a {
 }
 
 @screen lg {
-  h1 {
-  }
+  h1 {}
 
   h2 {
     font-size: 3.8vw !important;
   }
 
-  h3 {
-  }
+  h3 {}
 
-  h4 {
-  }
+  h4 {}
 
   .wrapper {
     @apply gap-y-0;
     grid-template-columns:
-      minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(
-        0vw,
-        1fr
-      )
-      minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(
-        0vw,
-        1.3fr
-      )
-      minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(
-        0vw,
-        1fr
-      )
-      minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(
-        0vw,
-        1.3fr
-      )
-      minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr);
+      minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw,
+        1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw,
+        1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw,
+        1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr) minmax(0vw,
+        1.3fr) minmax(0vw, 1fr) minmax(0vw, 1.3fr) minmax(0vw, 1fr);
   }
 }
 </style>
